@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biological Audit — Self-Assessment | The Clarity Protocol</title>
+    <link rel="stylesheet" href="print.css" media="print">
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            color: #00FF41;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+        }
+
+        .audit-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin: 0.5rem 0;
+        }
+
+        .checklist li:before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .score-box {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid #00FF41;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th {
+            background: #00FF41;
+            color: #000;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        td {
+            border: 1px solid #333;
+            padding: 0.75rem;
+        }
+
+        .print-btn {
+            background: #00FF41;
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 2rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media print {
+
+            .print-btn,
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="print-btn no-print" onclick="window.print()">📄 PRINT / SAVE AS PDF</button>
+
+    <h1>The Biological Audit</h1>
+    <p><strong>Self-Assessment Framework for Performance Optimization</strong></p>
+    <p>This audit quantifies your current biological state across four domains: Defense, Environment, Clarity, and
+        Execution. Use this to identify leverage points—the inputs with the highest ROI for your performance.</p>
+
+    <div class="warning-box">
+        <strong>📋 HOW TO USE:</strong><br>
+        1. Answer honestly (no one is watching)<br>
+        2. Check each box that applies to you<br>
+        3. Calculate your score for each section<br>
+        4. Focus on the lowest-scoring domain first
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>Domain 1: Biological Defense</h2>
+    <div class="audit-section">
+        <p><strong>Objective:</strong> Minimize toxin exposure and endocrine disruption.</p>
+
+        <h3>Nutrition (10 points possible)</h3>
+        <ul class="checklist">
+            <li>I eat zero seed oils (canola, soybean, sunflower, etc.) <strong>[2 pts]</strong></li>
+            <li>I consume zero refined sugar or artificial sweeteners <strong>[2 pts]</strong></li>
+            <li>I eat zero processed foods (>5 ingredients = processed) <strong>[2 pts]</strong></li>
+            <li>My protein is 100% grass-fed, wild-caught, or pasture-raised <strong>[2 pts]</strong></li>
+            <li>I use only Celtic or Redmond Real Salt (no table salt) <strong>[1 pt]</strong></li>
+            <li>I consume zero alcohol <strong>[1 pt]</strong></li>
+        </ul>
+
+        <h3>Environmental Toxins (10 points possible)</h3>
+        <ul class="checklist">
+            <li>I drink only filtered water (RO, carbon, or spring) <strong>[2 pts]</strong></li>
+            <li>I store food in glass containers (zero plastic) <strong>[2 pts]</strong></li>
+            <li>I use non-toxic personal care (deodorant, soap, shampoo) <strong>[2 pts]</strong></li>
+            <li>I cook with stainless steel, cast iron, or ceramic (no non-stick) <strong>[2 pts]</strong></li>
+            <li>I use natural cleaning products (vinegar, castile soap, baking soda) <strong>[1 pt]</strong></li>
+            <li>I avoid synthetic fragrances (candles, air fresheners, perfumes) <strong>[1 pt]</strong></li>
+        </ul>
+
+        <div class="score-box">
+            <strong>DEFENSE SCORE: ____ / 20</strong><br>
+            18-20: Elite | 14-17: Optimal | 10-13: Acceptable | <10: Toxic Load High </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>Domain 2: Environmental Control</h2>
+        <div class="audit-section">
+            <p><strong>Objective:</strong> Optimize light, temperature, and air quality for biological function.</p>
+
+            <h3>Light Hygiene (10 points possible)</h3>
+            <ul class="checklist">
+                <li>I get direct sunlight within 30 minutes of waking (10+ min) <strong>[3 pts]</strong></li>
+                <li>I wear blue-blocking glasses after 19:00 <strong>[2 pts]</strong></li>
+                <li>My bedroom is pitch black at night (no LED lights, blackout curtains) <strong>[2 pts]</strong></li>
+                <li>I avoid screens for 30 minutes after waking <strong>[1 pt]</strong></li>
+                <li>I use Night Shift/f.lux on devices after 19:00 <strong>[1 pt]</strong></li>
+                <li>I dim overhead lights after sunset (<10 lux) <strong>[1 pt]</strong></li>
+            </ul>
+
+            <h3>Temperature & Air (10 points possible)</h3>
+            <ul class="checklist">
+                <li>My bedroom is 60-67°F during sleep <strong>[2 pts]</strong></li>
+                <li>I do cold exposure 2+ times per week (shower, plunge, or cold bath) <strong>[3 pts]</strong></li>
+                <li>I do heat exposure 2+ times per week (sauna, hot bath, or hot tub) <strong>[3 pts]</strong></li>
+                <li>I open windows daily for fresh air circulation <strong>[1 pt]</strong></li>
+                <li>I use an air purifier (HEPA filter) or live in low-pollution area <strong>[1 pt]</strong></li>
+            </ul>
+
+            <div class="score-box">
+                <strong>ENVIRONMENT SCORE: ____ / 20</strong><br>
+                18-20: Elite | 14-17: Optimal | 10-13: Acceptable | <10: Circadian Disrupted </div>
+            </div>
+
+            <div class="page-break"></div>
+
+            <h2>Domain 3: Mental Clarity</h2>
+            <div class="audit-section">
+                <p><strong>Objective:</strong> Maximize cognitive performance and decision-making capacity.</p>
+
+                <h3>Focus & Attention (10 points possible)</h3>
+                <ul class="checklist">
+                    <li>I can sustain deep work for 90+ minutes without distraction <strong>[3 pts]</strong></li>
+                    <li>I check my phone <10 times per day <strong>[2 pts]</strong></li>
+                    <li>I have zero social media apps on my phone <strong>[2 pts]</strong></li>
+                    <li>I use airplane mode or Do Not Disturb during work blocks <strong>[1 pt]</strong></li>
+                    <li>I single-task (no multitasking) <strong>[1 pt]</strong></li>
+                    <li>I take deliberate breaks between deep work sessions <strong>[1 pt]</strong></li>
+                </ul>
+
+                <h3>Sleep Quality (10 points possible)</h3>
+                <ul class="checklist">
+                    <li>I sleep 7.5-8.5 hours per night <strong>[3 pts]</strong></li>
+                    <li>I fall asleep in <15 minutes <strong>[2 pts]</strong></li>
+                    <li>I wake naturally at the same time daily (±15 min variance) <strong>[2 pts]</strong></li>
+                    <li>I wake feeling refreshed (no grogginess) <strong>[1 pt]</strong></li>
+                    <li>I avoid caffeine after 14:00 <strong>[1 pt]</strong></li>
+                    <li>I avoid food 2+ hours before sleep <strong>[1 pt]</strong></li>
+                </ul>
+
+                <div class="score-box">
+                    <strong>CLARITY SCORE: ____ / 20</strong><br>
+                    18-20: Elite | 14-17: Optimal | 10-13: Acceptable | <10: Brain Fog Present </div>
+                </div>
+
+                <div class="page-break"></div>
+
+                <h2>Domain 4: Physical Execution</h2>
+                <div class="audit-section">
+                    <p><strong>Objective:</strong> Achieve baseline physical capacity markers.</p>
+
+                    <h3>Strength & Mobility (10 points possible)</h3>
+                    <ul class="checklist">
+                        <li>I can dead hang for 60+ seconds <strong>[2 pts]</strong></li>
+                        <li>I can hold a deep squat for 3+ minutes (cumulative) <strong>[2 pts]</strong></li>
+                        <li>I can do 20+ consecutive push-ups (men) or 10+ (women) <strong>[2 pts]</strong></li>
+                        <li>I can touch my toes with straight legs <strong>[1 pt]</strong></li>
+                        <li>I can walk/jog for 30+ minutes without fatigue <strong>[1 pt]</strong></li>
+                        <li>I have zero chronic joint pain <strong>[2 pts]</strong></li>
+                    </ul>
+
+                    <h3>Training Consistency (10 points possible)</h3>
+                    <ul class="checklist">
+                        <li>I train 4-5 times per week <strong>[3 pts]</strong></li>
+                        <li>I do Zone 2 cardio 2+ times per week (30+ min, nasal breathing) <strong>[2 pts]</strong>
+                        </li>
+                        <li>I do resistance training 3+ times per week <strong>[3 pts]</strong></li>
+                        <li>I track my workouts (reps, sets, duration, or distance) <strong>[1 pt]</strong></li>
+                        <li>I prioritize recovery (1-2 rest days per week) <strong>[1 pt]</strong></li>
+                    </ul>
+
+                    <div class="score-box">
+                        <strong>EXECUTION SCORE: ____ / 20</strong><br>
+                        18-20: Elite | 14-17: Optimal | 10-13: Acceptable | <10: Sedentary </div>
+                    </div>
+
+                    <div class="page-break"></div>
+
+                    <h2>Overall Biological Score</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th>Your Score</th>
+                                <th>Max Possible</th>
+                                <th>Performance Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Biological Defense</td>
+                                <td>____ / 20</td>
+                                <td>20</td>
+                                <td>_________</td>
+                            </tr>
+                            <tr>
+                                <td>Environmental Control</td>
+                                <td>____ / 20</td>
+                                <td>20</td>
+                                <td>_________</td>
+                            </tr>
+                            <tr>
+                                <td>Mental Clarity</td>
+                                <td>____ / 20</td>
+                                <td>20</td>
+                                <td>_________</td>
+                            </tr>
+                            <tr>
+                                <td>Physical Execution</td>
+                                <td>____ / 20</td>
+                                <td>20</td>
+                                <td>_________</td>
+                            </tr>
+                            <tr style="background: rgba(255,215,0,0.1); font-weight: bold;">
+                                <td>TOTAL SCORE</td>
+                                <td>____ / 80</td>
+                                <td>80</td>
+                                <td>_________</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Score Interpretation</h3>
+                    <div class="audit-section">
+                        <p><strong>72-80 (ELITE):</strong> Top 1%. Biological sovereignty achieved. Focus on maintenance
+                            + marginal gains.</p>
+                        <p><strong>60-71 (OPTIMAL):</strong> Top 10%. Solid foundation. Identify weak domains and
+                            address.</p>
+                        <p><strong>48-59 (ACCEPTABLE):</strong> Average. Major gains available. Start with
+                            lowest-scoring domain.</p>
+                        <p><strong>36-47 (SUBOPTIMAL):</strong> Below average. High leverage for improvement. Begin
+                            30-Day Reset immediately.</p>
+                        <p><strong>
+                                <36 (TOXIC):</strong> Critical state. Immediate intervention required. Start with
+                                    Defense domain (remove toxins).</p>
+                    </div>
+
+                    <div class="page-break"></div>
+
+                    <h2>Action Protocol by Score Range</h2>
+
+                    <h3>If Your Total Score is <48 (Suboptimal/Toxic)</h3>
+                            <div class="audit-section">
+                                <p><strong>Immediate Actions (Next 7 Days):</strong></p>
+                                <ol>
+                                    <li>Eliminate seed oils, sugar, and alcohol (Defense domain)</li>
+                                    <li>Get direct sunlight within 30 minutes of waking (Environment domain)</li>
+                                    <li>Sleep in total darkness for 8+ hours (Clarity domain)</li>
+                                    <li>Walk for 30 minutes daily (Execution domain)</li>
+                                </ol>
+                                <p><strong>Next Step:</strong> Complete the 30-Day System Reset to rebuild your
+                                    foundation.</p>
+                            </div>
+
+                            <h3>If Your Total Score is 48-59 (Acceptable)</h3>
+                            <div class="audit-section">
+                                <p><strong>Focus on Your Lowest Domain:</strong></p>
+                                <ul>
+                                    <li>If Defense is lowest: Audit your food labels and remove all seed oils/sugar</li>
+                                    <li>If Environment is lowest: Implement light hygiene (sun AM, blue blockers PM)
+                                    </li>
+                                    <li>If Clarity is lowest: Block 2x 90-minute deep work sessions daily</li>
+                                    <li>If Execution is lowest: Add 3 training sessions per week</li>
+                                </ul>
+                                <p><strong>Next Step:</strong> Re-audit in 30 days. Target: 60+ total score.</p>
+                            </div>
+
+                            <h3>If Your Total Score is 60-71 (Optimal)</h3>
+                            <div class="audit-section">
+                                <p><strong>Fine-Tuning Protocol:</strong></p>
+                                <ul>
+                                    <li>Address any domain scored <14< /li>
+                                    <li>Implement advanced protocols (thermal stress, fasting, HRV tracking)</li>
+                                    <li>Test performance: Track metrics (sleep, HRV, training volume)</li>
+                                </ul>
+                                <p><strong>Next Step:</strong> Quarterly re-audit to maintain calibration.</p>
+                            </div>
+
+                            <h3>If Your Total Score is 72-80 (Elite)</h3>
+                            <div class="audit-section">
+                                <p><strong>Maintenance + Marginal Gains:</strong></p>
+                                <ul>
+                                    <li>Sustain current protocol (80/20 adherence rule)</li>
+                                    <li>Experiment with advanced stressors (altitude, heat/cold cycling)</li>
+                                    <li>Optimize for specific goals (strength, endurance, cognitive performance)</li>
+                                </ul>
+                                <p><strong>Next Step:</strong> Audit every 6 months to detect drift.</p>
+                            </div>
+
+                            <div class="warning-box">
+                                <strong>⚠️ REMINDER:</strong> This audit is a snapshot. Re-audit monthly during
+                                transformation phases, quarterly during maintenance. Scores will fluctuate—use trends,
+                                not single data points.
+                            </div>
+
+                            <p style="margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #666;">
+                                © 2026 The Clarity Protocol | Measure to Manage
+                            </p>
+
+                            <button class="print-btn no-print" onclick="window.print()">📄 PRINT / SAVE AS PDF</button>
+</body>
+
+</html>

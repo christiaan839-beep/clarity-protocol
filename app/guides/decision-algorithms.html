@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Algorithms | The Clarity Protocol</title>
+    <link rel="stylesheet" href="print.css" media="print">
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            color: #00FF41;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+        }
+
+        .algorithm-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .decision-tree {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid #00FF41;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .info-box {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid #00FF41;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .print-btn {
+            background: #00FF41;
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 2rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media print {
+
+            .print-btn,
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="print-btn no-print" onclick="window.print()">📄 PRINT / SAVE AS PDF</button>
+
+    <h1>Decision Algorithms</h1>
+    <p><strong>Mental Models for High-Leverage Choices</strong></p>
+    <p>Most decisions are noise. Most actions are low-leverage. These algorithms filter signal from noise, identifying
+        the 20% of inputs that drive 80% of outcomes.</p>
+
+    <div class="warning-box">
+        <strong>⚠️ PRINCIPLE:</strong> Clarity is not about doing more. It's about doing less—with absolute precision.
+    </div>
+
+    <h2>The 10/10/10 Rule</h2>
+    <div class="algorithm-card">
+        <h3>Use Case: High-Stakes Decisions</h3>
+        <p><strong>Question:</strong> "How will I feel about this decision in 10 minutes, 10 months, and 10 years?"</p>
+
+        <h4>Time Horizons</h4>
+        <ul>
+            <li><strong>10 Minutes:</strong> Emotional impulse (ignore this—emotions are noise)</li>
+            <li><strong>10 Months:</strong> Tactical outcome (consequences, gains/losses)</li>
+            <li><strong>10 Years:</strong> Strategic truth (does this align with who I want to become?)</li>
+        </ul>
+
+        <h4>Application</h4>
+        <div class="decision-tree">
+            <strong>Example: Accept high-paying job that requires 70-hour weeks?</strong>
+
+            10 Minutes: Excitement (money, status, validation)
+            10 Months: Burned out, relationship strain, health decline
+            10 Years: Regret (traded vitality for dollars)
+
+            → <strong>DECISION: NO</strong>
+        </div>
+
+        <p><strong>Rule:</strong> If 10-year answer doesn't align with 10-month answer, default to 10-year.</p>
+    </div>
+
+    <h2>Inversion Thinking (via Charlie Munger)</h2>
+    <div class="algorithm-card">
+        <h3>Use Case: Avoiding Catastrophic Mistakes</h3>
+        <p><strong>Question:</strong> "What would guarantee failure? Now, avoid that."</p>
+
+        <h4>Process</h4>
+        <ol>
+            <li>Define the goal (e.g., "Build a successful business")</li>
+            <li>Invert it (e.g., "What would guarantee business failure?")</li>
+            <li>List failure modes:
+                <ul>
+                    <li>Ignore customer feedback</li>
+                    <li>Run out of cash</li>
+                    <li>Hire toxic people</li>
+                    <li>Scale prematurely</li>
+                </ul>
+            </li>
+            <li>Systematically avoid each failure mode</li>
+        </ol>
+
+        <h4>Application to Health</h4>
+        <div class="decision-tree">
+            <strong>Goal: Optimize longevity</strong>
+
+            Inversion: What would guarantee early death?
+            - Chronic inflammation (seed oils, sugar, stress)
+            - Sedentary lifestyle (zero movement)
+            - Sleep deprivation (<6 hours nightly) - Social isolation → <strong>ACTION: Systematically eliminate each
+                risk factor</strong>
+        </div>
+
+        <p><strong>Rule:</strong> Avoiding stupidity is easier than seeking brilliance.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>The 80/20 Audit (Pareto Principle)</h2>
+    <div class="algorithm-card">
+        <h3>Use Case: Identifying High-Leverage Actions</h3>
+        <p><strong>Question:</strong> "Which 20% of inputs drive 80% of my results?"</p>
+
+        <h4>Process</h4>
+        <ol>
+            <li>List all activities in a domain (work, health, relationships)</li>
+            <li>Score each by impact (1-10 scale)</li>
+            <li>Rank by impact score</li>
+            <li>Eliminate bottom 80%, double down on top 20%</li>
+        </ol>
+
+        <h4>Example: Health Inputs</h4>
+        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="background: #00FF41; color: #000;">
+                    <th style="padding: 0.75rem;">Input</th>
+                    <th>Impact (1-10)</th>
+                    <th>Time Cost</th>
+                    <th>ROI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border: 1px solid #333;">
+                    <td style="padding: 0.75rem;">Sleep 8+ hours</td>
+                    <td>10</td>
+                    <td>8 hr</td>
+                    <td><strong>TOP 20%</strong></td>
+                </tr>
+                <tr style="border: 1px solid #333; background: rgba(255,255,255,0.03);">
+                    <td style="padding: 0.75rem;">Eliminate seed oils</td>
+                    <td>9</td>
+                    <td>0 hr</td>
+                    <td><strong>TOP 20%</strong></td>
+                </tr>
+                <tr style="border: 1px solid #333;">
+                    <td style="padding: 0.75rem;">Strength train 3x/week</td>
+                    <td>8</td>
+                    <td>3 hr</td>
+                    <td><strong>TOP 20%</strong></td>
+                </tr>
+                <tr style="border: 1px solid #333; background: rgba(255,255,255,0.03);">
+                    <td style="padding: 0.75rem;">Morning sunlight</td>
+                    <td>8</td>
+                    <td>0.25 hr</td>
+                    <td><strong>TOP 20%</strong></td>
+                </tr>
+                <tr style="border: 1px solid #333;">
+                    <td style="padding: 0.75rem;">Take 17 supplements</td>
+                    <td>3</td>
+                    <td>1 hr (shopping/planning)</td>
+                    <td>Bottom 80% (eliminate)</td>
+                </tr>
+                <tr style="border: 1px solid #333; background: rgba(255,255,255,0.03);">
+                    <td style="padding: 0.75rem;">Track macros obsessively</td>
+                    <td>4</td>
+                    <td>2 hr</td>
+                    <td>Bottom 80% (eliminate)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>Rule:</strong> Optimization is 90% subtraction, 10% addition.</p>
+    </div>
+
+    <h2>Energy ROI (Biological Cost-Benefit)</h2>
+    <div class="algorithm-card">
+        <h3>Use Case: Evaluating Commitments</h3>
+        <p><strong>Question:</strong> "What is the energy cost vs. energy return of this action?"</p>
+
+        <h4>Energy Formula</h4>
+        <pre style="background: rgba(0,255,65,0.1); padding: 1rem; border-radius: 8px;">
+Energy ROI = (Energy Gained + Dopamine Gained) / (Energy Spent + Cortisol Cost)
+
+If ROI < 1.0 → Net energy drain (avoid)
+If ROI > 1.5 → Net energy gain (prioritize)
+        </pre>
+
+        <h4>Examples</h4>
+        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+            <thead>
+                <tr style="background: #00FF41; color: #000;">
+                    <th style="padding: 0.75rem;">Action</th>
+                    <th>Energy Cost</th>
+                    <th>Energy Return</th>
+                    <th>ROI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border: 1px solid #333;">
+                    <td style="padding: 0.75rem;">30-min morning walk</td>
+                    <td>-2</td>
+                    <td>+5 (dopamine, clarity)</td>
+                    <td><strong>2.5</strong> ✅</td>
+                </tr>
+                <tr style="border: 1px solid #333; background: rgba(255,255,255,0.03);">
+                    <td style="padding: 0.75rem;">Sauna session</td>
+                    <td>-3</td>
+                    <td>+7 (recovery, HGH)</td>
+                    <td><strong>2.3</strong> ✅</td>
+                </tr>
+                <tr style="border: 1px solid #333;">
+                    <td style="padding: 0.75rem;">2-hr social event (obligatory)</td>
+                    <td>-6</td>
+                    <td>+1 (minimal connection)</td>
+                    <td><strong>0.17</strong> ❌</td>
+                </tr>
+                <tr style="border: 1px solid #333; background: rgba(255,255,255,0.03);">
+                    <td style="padding: 0.75rem;">Scrolling social media</td>
+                    <td>-2 (cortisol, comparison)</td>
+                    <td>+0.5 (fleeting dopamine)</td>
+                    <td><strong>0.25</strong> ❌</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>Rule:</strong> Ruthlessly eliminate actions with ROI <1.0. Double down on ROI>2.0.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>The Clarity Filter (Yes/No Decision Tree)</h2>
+    <div class="algorithm-card">
+        <h3>Use Case: Daily Micro-Decisions</h3>
+        <p><strong>Question:</strong> "Does this move me closer to or further from my goal?"</p>
+
+        <div class="decision-tree" style="line-height: 1.8;">
+            <strong>Decision Framework:</strong>
+
+            STEP 1: Define the Goal
+            → Example: "Achieve biological sovereignty"
+
+            STEP 2: Ask Four Questions
+            ├─ Q1: Does this align with my 10-year vision?
+            │ ├─ NO → <strong>REJECT</strong>
+            │ └─ YES → Continue to Q2
+            │
+            ├─ Q2: Is this the highest-leverage action available right now?
+            │ ├─ NO → <strong>DEFER</strong> (revisit later)
+            │ └─ YES → Continue to Q3
+            │
+            ├─ Q3: Can this be delegated, automated, or eliminated?
+            │ ├─ YES → <strong>OPTIMIZE</strong> (don't do it yourself)
+            │ └─ NO → Continue to Q4
+            │
+            └─ Q4: Will I regret NOT doing this in 10 years?
+            ├─ NO → <strong>REJECT</strong>
+            └─ YES → <strong>EXECUTE IMMEDIATELY</strong>
+        </div>
+
+        <p><strong>Rule:</strong> If the answer isn't "Hell yes," it's a no.</p>
+    </div>
+
+    <h2>The Eisenhower Matrix (Urgency vs. Importance)</h2>
+    <div class="algorithm-card">
+        <h3>Use Case: Prioritization Under Time Pressure</h3>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; text-align: center;">
+            <thead>
+                <tr style="background: #00FF41; color: #000;">
+                    <th style="padding: 0.75rem;">↓ URGENT / IMPORTANT →</th>
+                    <th>IMPORTANT</th>
+                    <th>NOT IMPORTANT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border: 1px solid #333;">
+                    <td style="padding: 0.75rem; font-weight: bold; background: rgba(0,255,65,0.1);">URGENT</td>
+                    <td style="background: rgba(255,0,0,0.2);">
+                        <strong>Q1: CRISIS</strong><br>
+                        Do immediately<br>
+                        (Ex: Medical emergency)
+                    </td>
+                    <td style="background: rgba(255,193,7,0.2);">
+                        <strong>Q3: DISTRACTION</strong><br>
+                        Delegate or eliminate<br>
+                        (Ex: Most emails, calls)
+                    </td>
+                </tr>
+                <tr style="border: 1px solid #333;">
+                    <td style="padding: 0.75rem; font-weight: bold; background: rgba(0,255,65,0.1);">NOT URGENT</td>
+                    <td style="background: rgba(0,255,65,0.2);">
+                        <strong>Q2: STRATEGIC</strong><br>
+                        Schedule & protect<br>
+                        (Ex: Training, deep work, relationships)
+                    </td>
+                    <td style="background: rgba(0,0,0,0.3);">
+                        <strong>Q4: WASTE</strong><br>
+                        Delete entirely<br>
+                        (Ex: TV, social media)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>Rule:</strong> Spend 80%+ of time in Q2 (Important, Not Urgent). This is where leverage lives.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>The Second-Order Thinking Model</h2>
+    <div class="algorithm-card">
+        <h3>Use Case: Avoiding Unintended Consequences</h3>
+        <p><strong>Question:</strong> "And then what?"</p>
+
+        <h4>Process</h4>
+        <ol>
+            <li>Identify the first-order consequence (immediate outcome)</li>
+            <li>Ask: "And then what?" (second-order consequence)</li>
+            <li>Ask again: "And then what?" (third-order consequence)</li>
+            <li>Evaluate the full cascade</li>
+        </ol>
+
+        <h4>Example: Cutting Sleep to Work More</h4>
+        <div class="decision-tree">
+            <strong>First-Order:</strong> Extra 2 hours of productivity daily
+            <strong>Second-Order:</strong> Reduced cognitive function, decision fatigue
+            <strong>Third-Order:</strong> Poor decisions → wasted time → net productivity loss
+
+            → <strong>CONCLUSION: Sleep deprivation is never worth it</strong>
+        </div>
+
+        <h4>Example: Taking a High-Paying Corporate Job</h4>
+        <div class="decision-tree">
+            <strong>First-Order:</strong> $200K salary, financial security
+            <strong>Second-Order:</strong> 70-hour weeks, chronic stress, relationship strain
+            <strong>Third-Order:</strong> Health decline → medical costs, divorce, burnout
+
+            → <strong>CONCLUSION: Short-term gain, long-term catastrophic loss</strong>
+        </div>
+
+        <p><strong>Rule:</strong> Always think 3 moves ahead. Most people stop at move 1.</p>
+    </div>
+
+    <h2>Implementation: The Decision Journal</h2>
+    <div class="info-box">
+        <p><strong>Tool:</strong> Track major decisions to calibrate your judgment over time.</p>
+    </div>
+
+    <h4>Template</h4>
+    <pre style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; line-height: 1.8;">
+<strong>Date:</strong> _______________
+
+<strong>Decision:</strong> 
+[Describe the choice]
+
+<strong>Why I Made It:</strong>
+[Reasoning, assumptions, emotions]
+
+<strong>Expected Outcome (10 months):</strong>
+[Prediction]
+
+<strong>Actual Outcome (10 months later):</strong>
+[What happened]
+
+<strong>What I Learned:</strong>
+[Calibration notes]
+    </pre>
+
+    <p><strong>Rule:</strong> Review monthly. Identify patterns in good vs. bad decisions. Adjust algorithms
+        accordingly.</p>
+
+    <div class="warning-box">
+        <strong>⚠️ FINAL PRINCIPLE:</strong> These algorithms are not laws. They're heuristics. Use them to filter
+        noise, but never outsource critical thinking. The goal is clarity, not rigidity.
+    </div>
+
+    <p style="margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #666;">
+        © 2026 The Clarity Protocol | Think in Systems, Act with Precision
+    </p>
+
+    <button class="print-btn no-print" onclick="window.print()">📄 PRINT / SAVE AS PDF</button>
+</body>
+
+</html>

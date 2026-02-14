@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Clarity Protocol — Your Biological Operating System</title>
+    <meta name="description"
+        content="The Clarity Protocol is a 90-day operating system for reclaiming your body, mind, and sovereignty. Built in Cape Town. Engineered for the world.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="premium-enhancements.css">
+    <link rel="stylesheet" href="achievement-styles.css">
+    <link rel="stylesheet" href="interactivity-styles.css">
+    <link rel="stylesheet" href="pwa-social-styles.css">
+    <link rel="stylesheet" href="module-styles.css">
+    <link rel="manifest" href="/manifest.json">
+</head>
+
+<body>
+
+    <!-- ═══ NAVIGATION ═══ -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <div class="brand">CLARITY<span class="highlight">PROTOCOL</span></div>
+
+            <div class="mode-toggle-container">
+                <span class="mode-label">MASCULINE</span>
+                <label class="switch">
+                    <input type="checkbox" id="mode-switch">
+                    <span class="slider round"></span>
+                </label>
+                <span class="mode-label">FEMININE</span>
+            </div>
+
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#dashboard" class="active" data-section="dashboard">DASHBOARD</a></li>
+                <li><a href="#protocols" data-section="protocols">PROTOCOLS</a></li>
+                <li><a href="#library" data-section="library">LIBRARY</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ═══ HERO SECTION ═══ -->
+    <section id="hero" class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-brand">THE CLARITY PROTOCOL</div>
+            <h1 class="hero-title">
+                <span class="hero-line hero-line-1">You used to be</span>
+                <span class="hero-line hero-line-2 gold">dangerous.</span>
+                <span class="hero-line hero-line-3">It's time to rebuild.</span>
+            </h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">A 90-day operating system for men who are done being average. No gym. No
+                supplements. No bullshit. Just the discipline to subtract what's killing you and build what makes you
+                lethal.</p>
+            <a href="#dashboard" class="hero-cta">
+                <span>Enter The Protocol</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+            <div class="hero-footer">BUILT IN CAPE TOWN · ENGINEERED FOR THE WORLD</div>
+        </div>
+    </section>
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <section id="dashboard" class="section">
+        <div class="section-header">
+            <span class="section-tag">COMMAND CENTER</span>
+            <h2 class="section-title">Dashboard</h2>
+            <div class="header-actions">
+                <button class="btn btn-small btn-outline read-guide-btn" data-guide="system-reset">READ: SYSTEM
+                    RESET</button>
+            </div>
+            <p class="section-desc">Your daily sovereignty score. Track protocol adherence. Execute with precision.</p>
+        </div>
+
+        <!-- THERMAL TRACKER WIDGET -->
+        <div class="thermal-widget" id="thermal-tracker">
+            <div class="thermal-stats">
+                <span class="thermal-label">THERMAL PROTOCOL (11/60)</span>
+                <span class="thermal-value">ON TRACK</span>
+            </div>
+            <div class="thermal-rings">
+                <!-- Rings rendered by JS -->
+                <canvas id="cold-ring" width="60" height="60"></canvas>
+                <canvas id="heat-ring" width="60" height="60"></canvas>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Timeline & Biometrics -->
+            <div class="glass-card glass-card-premium stat-card stagger-item">
+                <h3>CLARITY INDEX</h3>
+                <div class="stat-ring-container">
+                    <svg class="stat-ring" width="120" height="120">
+                        <circle class="bg" cx="60" cy="60" r="54" />
+                        <circle class="progress" id="score-ring-fill" cx="60" cy="60" r="54" />
+                    </svg>
+                    <div class="stat-value" id="score-value">0</div>
+                </div>
+                <div class="stat-label">BIOLOGICAL READINESS</div>
+            </div>
+
+            <div class="glass-card glass-card-premium biometrics-card stagger-item">
+                <h3>LIVE BIOMETRICS</h3>
+                <div class="bio-grid">
+                    <div class="bio-item">
+                        <span class="bio-label">HRV</span>
+                        <span class="bio-value" id="bio-hrv">--</span>
+                    </div>
+                    <div class="bio-item">
+                        <span class="bio-label">SLEEP</span>
+                        <span class="bio-value" id="bio-sleep">--</span>
+                    </div>
+                    <div class="bio-item">
+                        <span class="bio-label">RECOVERY</span>
+                        <span class="bio-value" id="bio-recovery">--</span>
+                    </div>
+                </div>
+                <div class="bio-status" id="bio-status">Syncing Samsung Health...</div>
+
+                <!-- HRV Trend Chart -->
+                <div class="hrv-chart-container" style="margin-top: 24px;">
+                    <h4 style="font-size: 0.85rem; color: var(--signal-dim); margin-bottom: 12px;">7-DAY HRV TREND</h4>
+                    <div id="hrv-chart" style="min-height: 180px;"></div>
+                </div>
+            </div>
+
+            <!-- Achievement Showcase -->
+            <div class="glass-card glass-card-premium stagger-item" style="grid-column: span 2;">
+                <h3>ACHIEVEMENTS</h3>
+                <div id="achievement-showcase"></div>
+            </div>
+
+            <div class="glass-card timeline-card">
+                <h3>DAILY ORBIT</h3>
+                <div class="timeline" id="dashboard-timeline">
+                    <!-- Javascript populates this -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PROTOCOLS ═══ -->
+    <section id="protocols" class="section">
+        <div class="section-header">
+            <span class="section-tag">THE SYSTEM</span>
+            <h2 class="section-title">THE DAILY ORBIT</h2>
+            <div class="header-actions">
+                <button class="btn btn-small btn-outline read-guide-btn" id="protocol-guide-btn"
+                    data-guide="day-1">READ: 24H BLUEPRINT</button>
+            </div>
+            <p class="section-desc">Structure Creates Freedom. Automated Decision Making.</p>
+        </div>
+        <div class="protocols-grid orbit-container" id="protocol-grid"></div>
+    </section>
+
+    <!-- BLUEPRINT (KNOWLEDGE ARSENAL) -->
+    <section id="library" class="section">
+        <div class="section-header">
+            <span class="section-tag">THE BLUEPRINT</span>
+            <h2 class="section-title">KNOWLEDGE ARSENAL</h2>
+            <p class="section-desc">The Operating System Manual. Internalize the Philosophy.</p>
+        </div>
+
+        <!-- Interactive Module Containers -->
+        <div id="red-list-module" class="red-list-container hidden">
+            <input type="text" id="red-list-search" class="search-bar"
+                placeholder="SEARCH INGREDIENTS (e.g. Canola, Nitrate)...">
+            <div class="red-list-results" id="red-list-results"></div>
+        </div>
+
+        <div class="library-grid" id="library-grid">
+            <!-- Populated by JS in 4 Phases -->
+        </div>
+    </section>
+
+    <!-- ═══ PDF GUIDES ═══ -->
+    <section id="pdf-guides" class="section section-dark">
+        <div class="section-header">
+            <span class="section-tag">COMPREHENSIVE GUIDES</span>
+            <h2 class="section-title">PDF Protocol Library</h2>
+            <p class="section-desc">Print-optimized protocols for deep study. Open → Print/Download → Execute.</p>
+        </div>
+
+        <div class="library-grid">
+            <div class="glass-card">
+                <h3>Day 1 Protocol</h3>
+                <p>The First 24 Hours: Your Biological Reboot Sequence</p>
+                <button class="btn btn-outline" onclick="openPDFGuide('day-1-protocol.html')">OPEN GUIDE</button>
+            </div>
+
+            <div class="glass-card">
+                <h3>30-Day System Reset</h3>
+                <p>Complete Biological Recalibration (4 Weekly Phases)</p>
+                <button class="btn btn-outline" onclick="openPDFGuide('system-reset.html')">OPEN GUIDE</button>
+            </div>
+
+            <div class="glass-card">
+                <h3>Biological Audit</h3>
+                <p>Self-Assessment Framework (80-Point Scoring System)</p>
+                <button class="btn btn-outline" onclick="openPDFGuide('biological-audit.html')">OPEN GUIDE</button>
+            </div>
+
+            <div class="glass-card">
+                <h3>28-Day Hormone Map</h3>
+                <p>Feminine Protocol: Optimize Across the Infradian Rhythm</p>
+                <button class="btn btn-outline" onclick="openPDFGuide('hormone-map.html')">OPEN GUIDE</button>
+            </div>
+
+            <div class="glass-card">
+                <h3>Training Standards</h3>
+                <p>Baseline Physical Capacity Markers (Strength, Endurance, Thermal)</p>
+                <button class="btn btn-outline" onclick="openPDFGuide('training-standards.html')">OPEN GUIDE</button>
+            </div>
+
+            <div class="glass-card">
+                <h3>Nutritional Framework</h3>
+                <p>Food Philosophy: The Red List & Swap List</p>
+                <button class="btn btn-outline" onclick="openPDFGuide('nutritional-framework.html')">OPEN GUIDE</button>
+            </div>
+
+            <div class="glass-card">
+                <h3>Decision Algorithms</h3>
+                <p>Mental Models for High-Leverage Choices</p>
+                <button class="btn btn-outline" onclick="openPDFGuide('decision-algorithms.html')">OPEN GUIDE</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PROTOCOLS ═══ -->
+    <section id="protocols" class="section">
+        <div class="section-header">
+            <span class="section-tag">THE SYSTEM</span>
+            <h2 class="section-title">Protocol Modules</h2>
+            <p class="section-desc">Six pillars of biological sovereignty. Each protocol is a system, not a suggestion.
+            </p>
+        </div>
+        <div class="protocol-grid" id="protocol-grid"></div>
+    </section>
+
+    <!-- SECTIONS BELOW ARE ACCESSIBLE VIA NAV OR SCROLL, BUT DE-PRIORITIZED IN MAIN VISUAL HIERARCHY FOR ELITE USERS -->
+
+    <!-- SKILL TREE SECTION -->
+    <section id="training" class="section section-dark">
+        <div class="section-header">
+            <span class="section-tag">PHYSICAL ENGINEERING</span>
+            <h2 class="section-title">The Skill Tree</h2>
+            <div class="header-actions">
+                <button class="btn btn-small btn-outline read-guide-btn" data-guide="training-standards">READ: STRENGTH
+                    STANDARDS</button>
+            </div>
+            <p class="section-desc">Gamified progression. Unlock new levels of capability.</p>
+        </div>
+
+        <div class="skill-tree-container" id="skill-tree-container">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="skill-tabs">
+            <button class="skill-tab active" data-pillar="push_planche">PUSH (Planche)</button>
+            <button class="skill-tab" data-pillar="pull_frontlever">PULL (Front Lever)</button>
+            <button class="skill-tab" data-pillar="legs_pistol">LEGS (Pistol)</button>
+        </div>
+    </section>
+
+    <!-- MENTAL MODELS / DECISION ENGINE -->
+    <section id="mindset" class="section">
+        <div class="section-header">
+            <span class="section-tag">COGNITIVE TOOLS</span>
+            <h2 class="section-title">Decision Engine</h2>
+            <div class="header-actions">
+                <button class="btn btn-small btn-outline read-guide-btn" data-guide="mental-models">READ: MENTAL
+                    MODELS</button>
+            </div>
+            <p class="section-desc">Run your problems through the algorithms.</p>
+        </div>
+        <div class="engine-wrapper">
+            <div class="engine-sidebar">
+                <button class="engine-tab active" data-engine="inversion">Inversion</button>
+                <button class="engine-tab" data-engine="second-order">2nd Order Thinking</button>
+                <button class="engine-tab" data-engine="essentialist">Essentialism</button>
+            </div>
+            <div class="engine-display" id="engine-container">
+                <!-- JS Populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ 30-DAY RESET ═══ -->
+    <section id="reset" class="section">
+        <div class="section-header">
+            <span class="section-tag">THE REBUILD</span>
+            <h2 class="section-title">30-Day System Reset</h2>
+            <p class="section-desc">Four weeks. Four phases. Each one removes a layer of interference so the signal
+                comes through clear.</p>
+        </div>
+        <div class="reset-grid" id="reset-grid"></div>
+    </section>
+
+    <!-- ═══ DAILY PROTOCOL ═══ -->
+    <section id="daily" class="section section-dark">
+        <div class="section-header">
+            <span class="section-tag">DAY 1 BLUEPRINT</span>
+            <h2 class="section-title">The Daily Protocol</h2>
+            <p class="section-desc">This protocol eliminates decision fatigue. Follow the four phases. Understand the
+                why. Execute.</p>
+        </div>
+        <div class="daily-phases" id="daily-phases"></div>
+        <!-- Checklist -->
+        <div class="daily-checklist glass-card">
+            <h3 class="card-label">Day 1 Checklist</h3>
+            <div class="checklist" id="day1-checklist"></div>
+            <div class="checklist-score">Score: <span class="gold" id="checklist-score">0</span>/11 — <span
+                    id="checklist-verdict">Hit 8, and you lived a sovereign day.</span></div>
+        </div>
+    </section>
+
+    <!-- ═══ KNOWLEDGE ARSENAL (LIBRARY) ═══ -->
+    <section id="library" class="section">
+        <div class="section-header">
+            <h2>KNOWLEDGE ARSENAL</h2>
+            <p>Structured learning modules for protocol mastery. Track your progress.</p>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="library-controls">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="module-search"
+                    placeholder="Search modules, guides, protocols..." autocomplete="off">
+            </div>
+
+            <div class="filter-chips" id="filter-chips">
+                <button class="filter-chip active" data-filter="all">All Modules</button>
+                <button class="filter-chip" data-filter="Foundation">Foundation</button>
+                <button class="filter-chip" data-filter="Light">Light</button>
+                <button class="filter-chip" data-filter="Recovery">Recovery</button>
+                <button class="filter-chip" data-filter="Environment">Environment</button>
+                <button class="filter-chip" data-filter="Nutrition">Nutrition</button>
+                <button class="filter-chip" data-filter="Movement">Movement</button>
+            </div>
+        </div>
+
+        <!-- Module Grid (dynamically populated) -->
+        <div class="modules-grid" id="modules-grid">
+            <!-- Modules will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state hidden" id="empty-state">
+            <div class="empty-state-icon">📚</div>
+            <h3>No modules found</h3>
+            <p>Try adjusting your search or filters.</p>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="nav-brand-icon">◈</span>
+                <span>THE CLARITY PROTOCOL</span>
+            </div>
+            <div class="footer-tagline">Built in Cape Town. Engineered for the world.</div>
+            <div class="footer-copy">© 2026 The Clarity Protocol. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- READER MODAL -->
+    <div id="reader-modal" class="modal hidden">
+        <div class="modal-content glass-card">
+            <span class="close-modal">&times;</span>
+            <div class="reader-header">
+                <h2 id="reader-title">Guide Title</h2>
+                <div class="cover-line"></div>
+            </div>
+            <div class="reader-body" id="reader-body">
+                <!-- Content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
