@@ -25,6 +25,8 @@ import { AnalyticsManager, EventTracker, BehaviorHeatmap } from './services/anal
 import { SocialSharing, Leaderboard, CommunityChallenges } from './services/social.js';
 import { ModuleManager } from './services/modules.js';
 import { PDFManager } from './services/pdfManager.js';
+import { workflowEngine } from './services/workflow/WorkflowEngine.js';
+import { NodeEditor } from './services/workflow/NodeEditor.js';
 
 // ═══ DATA: MASCULINE (STANDARD) ═══
 const EXECUTION_PROTOCOL = {
@@ -123,6 +125,22 @@ const BIOHACKING_STACK = {
                 { name: "The Deep Work Stack", action: "Alpha-GPC 300mg + L-Theanine 200mg + Mag Threonate" }
             ]
         }
+    ]
+};
+
+// Tactical Sweep Data moved to Sovereign Data or kept as constant for now
+const TACTICAL_SWEEP_DATA = {
+    MASCULINE: [
+        { id: "m_sweep_1", category: "ENVIRONMENT", task: "Blackout Audit", detail: "Is the sleep environment 100% dark? (Tape over LEDs)", impact: "Testosterone/HGH" },
+        { id: "m_sweep_2", category: "NUTRITION", task: "Seed Oil Purge", detail: "Check pantry for Canola, Sunflower, Soybean oils. Trash them.", impact: "Inflammation" },
+        { id: "m_sweep_3", category: "MINDSET", task: "The Friction Audit", detail: "Identify one task you are avoiding. Do it first.", impact: "Dopamine Resensitization" },
+        { id: "m_sweep_4", category: "PHYSIOLOGY", task: "Grip Strength Test", detail: "Dead hang for max time. Target: >90s.", impact: "CNS Integrity" }
+    ],
+    FEMININE: [
+        { id: "f_sweep_1", category: "ENVIRONMENT", task: "Endocrine Defense", detail: "Check skincare for Phthalates/Parabens. Switch to biological matches.", impact: "Estrogen Balance" },
+        { id: "f_sweep_2", category: "NUTRITION", task: "Cycle-Sync Pantry", detail: "Follicular/Ovulatory: Fermented foods. Luteal: Root veggies.", impact: "Progesterone Production" },
+        { id: "f_sweep_3", category: "MINDSET", task: "Boundary Audit", detail: "Where are you leaking energy? Say 'No' to one obligation.", impact: "Cortisol Management" },
+        { id: "f_sweep_4", category: "PHYSIOLOGY", task: "Lymphatic Flow", detail: "10 mins Legs Up Wall or Dry Brushing.", impact: "Detoxification" }
     ]
 };
 
@@ -240,13 +258,9 @@ const PROTOCOL_MODULES = [
     }
 ];
 
-// ═══ GLOBAL MAP DATA ═══
-const MAP_DATA = [
-    { id: 1, name: "The Organic Butcher", type: "safe", lat: 40, lng: 50, tags: ["VERIFIED", "GRASS-FED"], desc: "100% Pasture-raised. No seed oils." },
-    { id: 2, name: "Pure Springs Spa", type: "safe", lat: 42, lng: 48, tags: ["COLD PLUNGE", "SAUNA"], desc: "Bio-hacking facility. 5°C Plunge available." },
-    { id: 3, name: "City Bistro", type: "warning", lat: 38, lng: 52, tags: ["REQUEST BUTTER"], desc: "Uses olive oil but kitchen has canola. Request specifically." },
-    { id: 4, name: "Fast Fuel", type: "hazard", lat: 45, lng: 55, tags: ["SEED OILS", "GLYPHOSATE"], desc: "AVOID. Heavy use of soybean oil." }
-];
+// ═══ GLOBAL MAP DATA (LOADED DYNAMICALLY) ═══
+// See loadSovereignMap()
+let MAP_DATA = [];
 
 // ═══ SCANNER DATA ═══
 const SCANNER_RESULTS = [
@@ -256,20 +270,49 @@ const SCANNER_RESULTS = [
 ];
 
 
-// ═══ LOCAL STORAGE HELPERS ═══
-function loadState(key, fallback) {
-    try { return JSON.parse(localStorage.getItem('clarity_' + key)) || fallback; }
-    catch { return fallback; }
-}
-
-function saveState(key, value) {
-    localStorage.setItem('clarity_' + key, JSON.stringify(value));
-}
-
-
 // ═══ STATE MANAGEMENT ═══
-let currentMode = loadState('mode', 'MASCULINE'); // 'MASCULINE' or 'FEMININE'
-let cycleDay = loadState('cycle_day', 1);
+// Using SovereignData.js now
+
+let currentMode = SovereignData.get(SovereignData.KEYS.MODE, 'MASCULINE');
+
+// ═══ INITIALIZATION ═══
+document.addEventListener('DOMContentLoaded', () => {
+    initNav();
+    // initHeroAnimation(); // Currently erroring or missing function definition in snippet, skipping for now or assumed global
+    initDashboard();
+    // initProtocols(); // Keep for general modules if needed, or refactor
+    // initSkillTree();
+    // initEngine();
+    // initInteractivity();
+    checkRedMode();
+
+    // Initialize Score
+    updateSovereigntyScore();
+    // simulateBiometrics();
+
+    // Initialize 12-Week Build Tracker (The Sovereign Map)
+    initBuildTracker(timelineEl);
+
+    // Initialize Workflow Editor
+    const editor = new NodeEditor('protocol-lab', workflowEngine);
+
+    // Initialize Tactical Sweep
+    initTacticalSweep();
+
+    // Listen for sovereign data updates
+    window.addEventListener('sovereign-data-update', (e) => {
+        if (e.detail.key === SovereignData.KEYS.MODE) {
+            currentMode = e.detail.value;
+            // Full re-render on mode switch
+            updateBodyClass();
+            initDashboard();
+            initTacticalSweep();
+            updateContextualButtons();
+        }
+    });
+
+    updateBodyClass();
+});
 
 // ═══ HERO PARTICLE CANVAS ═══
 function initHeroCanvas() {
@@ -408,30 +451,8 @@ function initNav() {
 
         modeSwitch.addEventListener('change', (e) => {
             const newMode = e.target.checked ? 'FEMININE' : 'MASCULINE';
-
-            // 1. Fade Out
-            document.body.classList.add('fading-out');
-            sections.forEach(s => s.classList.add('fading-out'));
-
-            setTimeout(() => {
-                // 2. Update State & Data
-                currentMode = newMode;
-                saveState('mode', currentMode);
-                updateBodyClass();
-
-                // Refresh all content
-                initDashboard();
-                initProtocols(); // Re-render protocols with new data
-
-                // Update Contextual Buttons
-                updateContextualButtons();
-
-                // 3. Fade In
-                window.scrollTo({ top: 0, behavior: 'auto' }); // Optional: scroll to top
-                document.body.classList.remove('fading-out');
-                sections.forEach(s => s.classList.remove('fading-out'));
-
-            }, 400); // Wait for CSS transition
+            SovereignData.set(SovereignData.KEYS.MODE, newMode);
+            // Listener in DOMContentLoaded handles the rest
         });
     }
 
@@ -515,86 +536,262 @@ const DAILY_OPS = [
 
 // ═══ DASHBOARD ═══
 // ═══ DASHBOARD ═══
+// ═══ DASHBOARD ═══
 function initDashboard() {
     const timelineEl = document.getElementById('dashboard-timeline');
     if (!timelineEl) return;
-    timelineEl.innerHTML = '';
-    const completedTasks = loadState('daily_ops_completed_' + currentMode, []);
 
-    // Render Phases
-    DAILY_OPS.forEach((phase, pIndex) => {
+    // Use Track Modules to get data
+    let dailyOps;
+    let bioState = "";
+
+    if (currentMode === 'MASCULINE') {
+        dailyOps = MaleTrack.getDailyProtocol();
+        bioState = MaleTrack.getBioState();
+    } else {
+        dailyOps = FemaleTrack.getDailyProtocol();
+        bioState = FemaleTrack.getBioState();
+    }
+
+    timelineEl.innerHTML = '';
+    const completedTasks = SovereignData.get(SovereignData.KEYS.DAILY_OPS + '_' + currentMode, []);
+
+    // Render Bio State Header (Modified to include BioWeather)
+    const envTrigger = BioWeather.getEnvironmentTrigger();
+
+    const stateHeader = document.createElement('div');
+    stateHeader.className = 'ops-phase-header';
+    stateHeader.style.textAlign = 'center';
+    stateHeader.style.marginBottom = '20px';
+    stateHeader.innerHTML = `
+        <div style="font-size: 0.8rem; color: var(--signal-dim); letter-spacing: 2px;">BIOLOGICAL OS STATE</div>
+        <div style="font-size: 1.2rem; color: var(--gold); margin: 5px 0;">${bioState}</div>
+        <div style="font-size: 0.7rem; color: var(--signal-muted); display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+            <span>🌞 UV IND: ${BioWeather.getSolarContext().uv_index}</span>
+            <span>⚡ TRIG: ${envTrigger.action}</span>
+        </div>
+    `;
+    timelineEl.appendChild(stateHeader);
+
+    // Knowledge Artifact (The Truth-Based Integration)
+    const dailyTruth = KnowledgeArsenal.getDailyTruth();
+    const truthCard = document.createElement('div');
+    truthCard.className = 'glass-card';
+    truthCard.style.marginBottom = '20px';
+    truthCard.style.borderLeft = '3px solid var(--gold)';
+    truthCard.innerHTML = `
+        <div class="ops-row" style="padding-bottom: 0;">
+            <div class="ops-content">
+                <div class="ops-title" style="color: var(--gold); font-size: 0.8rem;">TRUTH ARTIFACT: ${dailyTruth.tag}</div>
+                <div class="ops-sub" style="font-weight: bold; margin-top: 5px;">${dailyTruth.title}</div>
+            </div>
+        </div>
+        <div class="ops-details" style="display: block; padding-top: 10px;">
+            <div class="ops-cite">${dailyTruth.citation}</div>
+            <div class="ops-meta" style="margin-top: 5px; color: var(--signal-muted);">${dailyTruth.summary}</div>
+             <div class="ops-meta" style="margin-top: 5px; color: var(--signal); font-style: italic;">"${dailyTruth.mechanism}"</div>
+        </div>
+    `;
+    timelineEl.appendChild(truthCard);
+
+    // Render Build Tracker BEFORE Daily Ops
+    // actually, let's append it after for layout, or handle inside initBuildTracker via prepend
+    // For now, allow initBuildTracker to handle its own placement
+
+    dailyOps.forEach((phase, phaseIndex) => {
         const phaseEl = document.createElement('div');
         phaseEl.className = 'ops-phase';
-        phaseEl.innerHTML = `<div class="ops-phase-header">${phase.phase}</div>`;
 
-        phase.items.forEach((item, iIndex) => {
-            const uniqueId = `${pIndex}-${iIndex}`;
+        const header = document.createElement('div');
+        header.className = 'ops-phase-header';
+        header.textContent = phase.phase;
+        phaseEl.appendChild(header);
+
+        phase.items.forEach((item, itemIndex) => {
+            const uniqueId = `ops_${currentMode}_${phaseIndex}_${itemIndex}`;
             const isCompleted = completedTasks.includes(uniqueId);
 
             const card = document.createElement('div');
             card.className = `ops-card ${isCompleted ? 'completed' : ''}`;
             card.dataset.id = uniqueId;
-
-            let widgetHtml = '';
-            if (item.widget === 'timer') {
-                widgetHtml = `<button class="ops-btn timer-btn" onclick="startTimer(this, ${item.duration})">Start ${item.duration}m Timer</button>`;
-            } else if (item.widget === 'tracker') {
-                widgetHtml = `<div class="ops-tracker">11/60 Weekly Progress</div>`;
-            }
-
             card.innerHTML = `
-                <div class="ops-row">
+                <div class="ops-row" onclick="toggleTaskCompletion('${uniqueId}', this.parentNode)">
                     <div class="ops-time">${item.time}</div>
                     <div class="ops-content">
                         <div class="ops-title">${item.title}</div>
-                        <div class="ops-sub">${item.action || item.input || item.protocol}</div>
+                        <div class="ops-sub">${item.action}</div>
                     </div>
                     <div class="ops-status"></div>
                 </div>
                 <div class="ops-details">
-                    ${item.citation ? `<div class="ops-cite">${item.citation}</div>` : ''}
-                    ${item.input ? `<div class="ops-meta"><span class="gold">INPUT:</span> ${item.input}</div>` : ''}
-                    ${item.protocol ? `<div class="ops-meta"><span class="gold">PROTOCOL:</span> ${item.protocol}</div>` : ''}
-                    ${widgetHtml}
+                    <div class="ops-cite">${item.citation || "Protocol Standard"}</div>
+                    <div class="ops-meta">TYPE: ${item.type.toUpperCase()}</div>
+                    <button class="ops-btn" onclick="toggleTaskDetails(this.parentNode.parentNode)">DETAILS</button>
+                    ${isCompleted ? '<div class="ops-tracker">EXECUTED</div>' : ''}
                 </div>
             `;
-
-            // Interactions
-            card.querySelector('.ops-row').addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent detailed view toggle if clicking row
-                toggleTaskCompletion(uniqueId, card);
-            });
-
-            card.addEventListener('click', () => {
-                card.classList.toggle('expanded');
-            });
-
             phaseEl.appendChild(card);
         });
 
         timelineEl.appendChild(phaseEl);
     });
 
-    // Red Mode Check
-    checkRedMode();
-    setInterval(checkRedMode, 60000); // Check every minute
-
-    // Initialize Score
     updateSovereigntyScore();
-    simulateBiometrics();
+
+    // Initialize Tactical Sweep
+    initTacticalSweep();
+
+    // Load Sovereign Map (Logistics Agent)
+    loadSovereignMap();
+}
+
+async function loadSovereignMap() {
+    try {
+        const response = await fetch('sovereign_map.json');
+        if (!response.ok) throw new Error("Map Agent Offline");
+        const data = await response.json();
+        MAP_DATA = data.locations;
+        renderMapWidget();
+    } catch (e) {
+        console.warn("Sovereign Map Load Error:", e);
+        // Fallback or do nothing
+    }
+}
+
+function renderMapWidget() {
+    const timelineEl = document.getElementById('dashboard-timeline');
+    if (!timelineEl || MAP_DATA.length === 0) return;
+
+    let mapContainer = document.getElementById('sovereign-map-widget');
+    if (!mapContainer) {
+        mapContainer = document.createElement('div');
+        mapContainer.id = 'sovereign-map-widget';
+        mapContainer.className = 'glass-card';
+        mapContainer.style.marginTop = '20px';
+        mapContainer.style.border = '1px solid var(--signal-dim)';
+        timelineEl.appendChild(mapContainer);
+    }
+
+    const safeCount = MAP_DATA.filter(l => l.type === 'safe').length;
+
+    let html = `
+        <div class="ops-row" style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <div class="ops-content">
+                <div class="ops-title" style="color: var(--gold); font-size: 0.9rem;">LOGISTICS AGENT: ACTIVE</div>
+                <div class="ops-sub" style="color: var(--signal);">Sources Identified: ${safeCount} Safe / ${MAP_DATA.length} Total</div>
+            </div>
+            <div class="ops-status" style="font-size: 1.5rem;">🌍</div>
+        </div>
+        <div style="padding: 1rem; max-height: 200px; overflow-y: auto;">
+    `;
+
+    MAP_DATA.forEach(loc => {
+        const color = loc.type === 'safe' ? 'var(--gold)' : 'var(--danger)';
+        html += `
+            <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: bold; color: var(--signal);">${loc.name}</span>
+                    <span style="font-size: 0.6rem; background: ${color}; color: var(--void); padding: 2px 6px; border-radius: 4px;">${loc.type.toUpperCase()}</span>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--signal-muted); margin-top: 4px;">${loc.desc}</div>
+            </div>
+        `;
+    });
+
+    html += `</div>`;
+    mapContainer.innerHTML = html;
+}
+
+// ═══ TACTICAL SWEEP LOGIC ═══
+function initTacticalSweep() {
+    const dashboardContainer = document.querySelector('.dashboard-grid');
+    if (!dashboardContainer) return;
+
+    // Check if sweep container exists, if not create it
+    let sweepContainer = document.getElementById('tactical-sweep-container');
+    if (!sweepContainer) {
+        sweepContainer = document.createElement('div');
+        sweepContainer.id = 'tactical-sweep-container';
+        sweepContainer.className = 'glass-card sweep-card';
+        // Insert after timeline or at the top of dashboard grid
+        const timeline = document.getElementById('dashboard-timeline');
+        if (timeline && timeline.parentNode) {
+            timeline.parentNode.insertBefore(sweepContainer, timeline);
+        } else {
+            dashboardContainer.prepend(sweepContainer);
+        }
+    }
+
+    const modeData = TACTICAL_SWEEP_DATA[currentMode];
+    const completedItems = SovereignData.get(SovereignData.KEYS.TACTICAL_SWEEP + '_' + currentMode, []);
+
+    const guideLink = currentMode === 'FEMININE' ? 'guides/female-tactical-sweep.html' : 'guides/male-tactical-sweep.html';
+
+    let html = `
+        <div class="sweep-header">
+            <h3><span class="icon">⚔️</span> BLACK BAG AUDIT: ${currentMode}</h3>
+            <div class="sweep-actions">
+                <a href="${guideLink}" target="_blank" class="ops-btn" style="font-size: 0.6rem; margin: 0; padding: 4px 8px;">READ INTEL</a>
+                <div class="sweep-progress">${completedItems.length}/${modeData.length}</div>
+            </div>
+        </div>
+        <div class="sweep-list">
+    `;
+
+    modeData.forEach(item => {
+        const isChecked = completedItems.includes(item.id);
+        html += `
+            <div class="sweep-item ${isChecked ? 'completed' : ''}" onclick="toggleSweepItem('${item.id}', this)">
+                <div class="sweep-checkbox">${isChecked ? '✓' : ''}</div>
+                <div class="sweep-content">
+                    <div class="sweep-task">${item.task} <span class="sweep-tag">${item.category}</span></div>
+                    <div class="sweep-detail">${item.detail}</div>
+                    <div class="sweep-impact">IMPACT: ${item.impact}</div>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `</div>`;
+    sweepContainer.innerHTML = html;
+}
+
+function toggleSweepItem(id, el) {
+    const key = SovereignData.KEYS.TACTICAL_SWEEP + '_' + currentMode;
+    const completed = SovereignData.toggleItem(key, id);
+
+    // UI Update
+    const isNowChecked = completed.includes(id);
+    if (isNowChecked) {
+        el.classList.add('completed');
+        el.querySelector('.sweep-checkbox').textContent = '✓';
+        if (navigator.vibrate) navigator.vibrate(50);
+    } else {
+        el.classList.remove('completed');
+        el.querySelector('.sweep-checkbox').textContent = '';
+    }
+
+    // Update Progress Text
+    const modeData = TACTICAL_SWEEP_DATA[currentMode];
+    const progressEl = el.closest('.glass-card').querySelector('.sweep-progress');
+    if (progressEl) progressEl.textContent = `${completed.length}/${modeData.length}`;
+
+    updateSovereigntyScore();
 }
 
 function toggleTaskCompletion(id, card) {
-    let completed = loadState('daily_ops_completed_' + currentMode, []);
-    if (completed.includes(id)) {
-        completed = completed.filter(i => i !== id);
-        card.classList.remove('completed');
-    } else {
-        completed.push(id);
+    const key = SovereignData.KEYS.DAILY_OPS + '_' + currentMode;
+    const completed = SovereignData.toggleItem(key, id);
+
+    const isNowChecked = completed.includes(id);
+
+    if (isNowChecked) {
         card.classList.add('completed');
         if (navigator.vibrate) navigator.vibrate(50);
+    } else {
+        card.classList.remove('completed');
     }
-    saveState('daily_ops_completed_' + currentMode, completed);
+
     updateSovereigntyScore();
 }
 
@@ -632,18 +829,38 @@ function startTimer(btn, minutes) {
 
 
 function updateSovereigntyScore() {
-    const completed = loadState('daily_ops_completed_' + currentMode, []);
-    const total = DAILY_OPS.reduce((acc, phase) => acc + phase.items.length, 0);
-    const score = Math.round((completed.length / total) * 100);
+    const opsCompleted = SovereignData.get(SovereignData.KEYS.DAILY_OPS + '_' + currentMode, []);
+    const sweepCompleted = SovereignData.get(SovereignData.KEYS.TACTICAL_SWEEP + '_' + currentMode, []);
+
+    // Need to get total ops from the Tracks now
+    let dailyOps;
+    if (currentMode === 'MASCULINE') {
+        dailyOps = MaleTrack.getDailyProtocol();
+    } else {
+        dailyOps = FemaleTrack.getDailyProtocol();
+    }
+
+    const totalOps = dailyOps.reduce((acc, phase) => acc + phase.items.length, 0);
+    const totalSweep = TACTICAL_SWEEP_DATA[currentMode].length;
+
+    const totalItems = totalOps + totalSweep;
+    const totalDone = opsCompleted.length + sweepCompleted.length;
+
+    // Avoid division by zero
+    const score = totalItems === 0 ? 0 : Math.round((totalDone / totalItems) * 100);
 
     const scoreEl = document.getElementById('score-value');
     const ringEl = document.getElementById('score-ring-fill');
 
-    animateCount(scoreEl, score, 1500);
+    if (scoreEl) animateCount(scoreEl, score, 1500);
 
-    const circumference = 2 * Math.PI * 54; // r=54
-    const offset = circumference - (score / 100) * circumference;
-    ringEl.style.strokeDashoffset = offset;
+    if (ringEl) {
+        // 534 is circumference of r=85 (approx) -> actually r=54 in HTML (2*PI*54 ≈ 339)
+        // CSS says stroke-dasharray: 534.
+        const maxOffset = 534;
+        const offset = maxOffset - (maxOffset * score / 100);
+        ringEl.style.strokeDashoffset = offset;
+    }
 }
 
 function animateCount(el, target, duration) {
@@ -1353,7 +1570,7 @@ function initLibrary() {
         window.clarityDebug.pdfManager = pdfManager;
     }
 }
-}
+
 
 function initSwapList() {
     const container = document.getElementById('swap-list-items');

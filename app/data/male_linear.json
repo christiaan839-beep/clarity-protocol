@@ -1,0 +1,48 @@
+{
+    "meta": {
+        "logic": "LINEAR_24H",
+        "reference": "Solar/Testosterone Pulse"
+    },
+    "schedule": {
+        "0600_neural_prime": {
+            "title": "THE NEURAL PRIME",
+            "trigger": "Sunlight (Cortisol Pulse)",
+            "protocol": {
+                "name": "Greasing the Groove (GtG)",
+                "volume": "50% Max Reps",
+                "focus": "Myelination / Skill Acquisition",
+                "exercises": [
+                    "Planche Lean",
+                    "Front Lever",
+                    "One-Arm Pushup"
+                ]
+            },
+            "why": "High Testosterone + Low Fatigue = Pure Neural Adaptation."
+        },
+        "1600_power_burst": {
+            "title": "THE POWER BURST",
+            "trigger": "Core Temp Peak (HGH Catalyst)",
+            "protocol": {
+                "name": "Mechanical Tension",
+                "volume": "High Intensity / Hypertrophy",
+                "focus": "Power / Structure",
+                "exercises": [
+                    "Weighted Dips",
+                    "Muscle-Ups",
+                    "Pseudo-Planche Pushups"
+                ]
+            },
+            "why": "Joints lubricated. Core temp max. Window for structural growth."
+        },
+        "1700_thermal_shock": {
+            "title": "THE THERMAL SHOCK",
+            "trigger": "Post-Workout Recovery",
+            "protocol": {
+                "name": "11/60 Contrast",
+                "details": "20m Sauna (80°C) -> 3m Cold Plunge (10°C)",
+                "mechanism": "Norepinephrine Surge (530%) + HSP Refolding"
+            },
+            "why": "Clear brain fog. Repair muscle damage."
+        }
+    }
+}

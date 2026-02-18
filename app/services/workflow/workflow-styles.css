@@ -1,0 +1,211 @@
+/* ═══ WORKFLOW EDITOR ═══ */
+#protocol-lab {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+}
+
+.workflow-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ─── SIDEBAR (NODE PALETTE) ─── */
+.node-palette {
+    width: 260px;
+    background: rgba(20, 20, 20, 0.95);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.palette-header {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.palette-section {
+    margin-bottom: 1.5rem;
+}
+
+.palette-section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--signal-dim);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.palette-node {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.palette-node:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--gold);
+    transform: translateX(4px);
+}
+
+.palette-icon {
+    font-size: 1.2rem;
+}
+
+/* ─── CANVAS ─── */
+.workflow-canvas {
+    flex: 1;
+    position: relative;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    overflow: hidden;
+    /* Infinite scroll handled by JS transform */
+    cursor: grab;
+}
+
+.workflow-canvas.panning {
+    cursor: grabbing;
+}
+
+/* ─── NODES ON CANVAS ─── */
+.canvas-node {
+    position: absolute;
+    width: 200px;
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    color: #eee;
+    user-select: none;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.canvas-node.selected {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+}
+
+.node-header {
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.node-body {
+    padding: 0.75rem;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* ─── HANDLES (INPUTS/OUTPUTS) ─── */
+.node-handle {
+    width: 12px;
+    height: 12px;
+    background: #555;
+    border: 2px solid #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: crosshair;
+    transition: background 0.2s;
+}
+
+.node-handle:hover {
+    background: var(--gold);
+    transform: translateY(-50%) scale(1.2);
+}
+
+.handle-input {
+    left: -6px;
+}
+
+.handle-output {
+    right: -6px;
+}
+
+/* ─── CONNECTIONS (SVG) ─── */
+.connections-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.connection-path {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 2px;
+    pointer-events: all;
+    /* Allow clicking to delete? */
+    transition: stroke 0.2s;
+}
+
+.connection-path:hover {
+    stroke: var(--gold);
+    stroke-width: 3px;
+    cursor: pointer;
+}
+
+/* ─── CONTROLS ─── */
+.canvas-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+.control-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: var(--gold);
+    color: #000;
+}

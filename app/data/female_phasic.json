@@ -1,0 +1,92 @@
+{
+    "meta": {
+        "logic": "PHASIC_28D",
+        "reference": "Infradian Rhythm"
+    },
+    "seasons": {
+        "winter": {
+            "phase": "Menstrual",
+            "days": [
+                1,
+                5
+            ],
+            "bio_state": "All Hormones Low",
+            "training_logic": "RESTORATION",
+            "nutrition_logic": "Deep Nourishment",
+            "protocols": {
+                "allowed": [
+                    "Yoga",
+                    "Walking",
+                    "Legs Up Wall"
+                ],
+                "forbidden": [
+                    "HIIT",
+                    "Heavy Lifting",
+                    "Fasting"
+                ],
+                "nutrition_focus": "Warm Stews, Iron-Rich, No Raw Salads"
+            }
+        },
+        "spring": {
+            "phase": "Follicular",
+            "days": [
+                6,
+                12
+            ],
+            "bio_state": "Estrogen Rising",
+            "training_logic": "NEUROPLASTICITY",
+            "nutrition_logic": "Light & Fast",
+            "protocols": {
+                "allowed": [
+                    "Skill Work",
+                    "Handstands",
+                    "Complex Flows"
+                ],
+                "forbidden": [],
+                "nutrition_focus": "Light Carbs, Fermented Foods, Fasting Tolerated"
+            }
+        },
+        "summer": {
+            "phase": "Ovulatory",
+            "days": [
+                13,
+                17
+            ],
+            "bio_state": "Estrogen & Testosterone Peak",
+            "training_logic": "MAX FORCE",
+            "nutrition_logic": "Bio-Available Protein",
+            "protocols": {
+                "allowed": [
+                    "PR Attempts",
+                    "HIIT",
+                    "Heavy Weighted Pullups"
+                ],
+                "forbidden": [],
+                "nutrition_focus": "Raw Foods, High Protein, Cruciferous Veg (Metabolize Estrogen)"
+            }
+        },
+        "autumn": {
+            "phase": "Luteal",
+            "days": [
+                18,
+                28
+            ],
+            "bio_state": "Progesterone Rising (Cortisol Sensitive)",
+            "training_logic": "METABOLIC STABILITY",
+            "nutrition_logic": "Progesterone Support",
+            "protocols": {
+                "allowed": [
+                    "Pilates",
+                    "Tempo Reps",
+                    "Zone 2 Cardio"
+                ],
+                "forbidden": [
+                    "HIIT",
+                    "Sprinting",
+                    "Fasting"
+                ],
+                "nutrition_focus": "Complex Carbs (Root Veg), No Intermittent Fasting"
+            }
+        }
+    }
+}

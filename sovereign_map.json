@@ -1,0 +1,66 @@
+{
+    "generated_at": "2026-02-18T12:53:05.912525",
+    "total_sources": 5,
+    "locations": [
+        {
+            "id": 7631,
+            "name": "The Primal Butcher",
+            "type": "safe",
+            "lat": 34.059999999999995,
+            "lng": -118.22999999999999,
+            "desc": "100% Grass-fed regeneratively raised beef. No hormones. Tallow available.",
+            "last_verified": "2026-02-18 12:53:05",
+            "tags": [
+                "VERIFIED SOVEREIGN"
+            ]
+        },
+        {
+            "id": 2145,
+            "name": "Industrial Feedlot Cafe",
+            "type": "hazard",
+            "lat": 34.029999999999994,
+            "lng": -118.235,
+            "desc": "Try our famous fries cooked in canola oil. Soybean fed chicken.",
+            "last_verified": "2026-02-18 12:53:05",
+            "tags": [
+                "TOXIN ALERT"
+            ]
+        },
+        {
+            "id": 6512,
+            "name": "Pure Springs Market",
+            "type": "safe",
+            "lat": 34.055,
+            "lng": -118.25,
+            "desc": "Local farmer's market. Raw dairy. A Greener World certified. Pasture-raised eggs.",
+            "last_verified": "2026-02-18 12:53:05",
+            "tags": [
+                "VERIFIED SOVEREIGN"
+            ]
+        },
+        {
+            "id": 7147,
+            "name": "Seed Oil Palace",
+            "type": "hazard",
+            "lat": 34.08,
+            "lng": -118.22,
+            "desc": "Deep fried everything. Vegetable oil blend.",
+            "last_verified": "2026-02-18 12:53:05",
+            "tags": [
+                "TOXIN ALERT"
+            ]
+        },
+        {
+            "id": 3477,
+            "name": "Sovereign Steakhouse",
+            "type": "safe",
+            "lat": 34.04,
+            "lng": -118.25999999999999,
+            "desc": "Cooked in tallow. Grass-fed steaks. Organic wines. No seed oils used in kitchen.",
+            "last_verified": "2026-02-18 12:53:05",
+            "tags": [
+                "VERIFIED SOVEREIGN"
+            ]
+        }
+    ]
+}

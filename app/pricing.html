@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Access | The Clarity Protocol</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="premium-enhancements.css">
+    <style>
+        .pricing-hero {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .price-card {
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 12px;
+            background: rgba(15, 15, 15, 0.6);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .price-card.featured {
+            border-color: var(--gold);
+            background: rgba(20, 20, 20, 0.8);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .tier-name {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--signal);
+            margin-bottom: 0.5rem;
+        }
+
+        .period {
+            font-size: 0.9rem;
+            color: var(--signal-dim);
+        }
+
+        .features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .features li {
+            margin-bottom: 1rem;
+            color: var(--signal-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features li.active {
+            color: var(--signal);
+        }
+
+        .check {
+            color: var(--gold);
+        }
+
+        .cta-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: var(--font-display);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: var(--gold);
+            color: var(--void);
+        }
+
+        .badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gold);
+            color: var(--void);
+            font-size: 0.6rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-container">
+            <div class="brand">CLARITY<span class="highlight">PROTOCOL</span></div>
+            <a href="index.html" style="font-size: 0.7rem; color: var(--gold);">BACK TO DASHBOARD</a>
+        </div>
+    </nav>
+
+    <div class="pricing-hero">
+        <h1 class="hero-title">INITIATE SOVEREIGNTY</h1>
+        <p class="hero-subtitle">Choose your level of biological engineering. Infrastructure creates freedom.</p>
+    </div>
+
+    <div class="pricing-grid">
+        <!-- TIER 1: THE DIVIDEND -->
+        <div class="price-card">
+            <div class="tier-name">The Sovereign Dividend</div>
+            <div class="price">$297<span class="period">/mo</span></div>
+            <p class="section-desc">Infrastructure maintenance fee. Automated biological logistics.</p>
+
+            <ul class="features">
+                <li class="active"><span class="check">✓</span> <strong>Automated Logistics</strong> (Grocery & Water
+                    Sourcing)</li>
+                <li class="active"><span class="check">✓</span> <strong>Quarterly Kitchen Audits</strong> ("Black Bag"
+                    Sweeps)</li>
+                <li class="active"><span class="check">✓</span> <strong>Biological Age Benchmarking</strong> (GlycanAge
+                    Integration)</li>
+                <li class="active"><span class="check">✓</span> <strong>Truth Alerts</strong> (2026 Geroscience Updates)
+                </li>
+                <li><span class="check">✗</span> No Initial Concierge Setup</li>
+            </ul>
+
+            <button class="cta-btn" onclick="initCheckout('dividend')">SUBSCRIBE</button>
+        </div>
+
+        <!-- TIER 2: THE BUILD -->
+        <div class="price-card featured">
+            <div class="badge">MOST POPULAR</div>
+            <div class="tier-name">The Sovereign Build</div>
+            <div class="price">$1,997<span class="period">/one-time</span></div>
+            <p class="section-desc">Complete 12-week environmental & biological architecture.</p>
+
+            <ul class="features">
+                <li class="active"><span class="check">✓</span> <strong>12-Week Protocol Build</strong> (Linear or
+                    Phasic)</li>
+                <li class="active"><span class="check">✓</span> <strong>Full Environmental Audit</strong> (Light, Water,
+                    Air, EMF)</li>
+                <li class="active"><span class="check">✓</span> <strong>Includes 3 Months</strong> of Sovereign Dividend
+                    ($891 Value)</li>
+                <li class="active"><span class="check">✓</span> <strong>Priority "Black Bag"</strong> Implementation
+                </li>
+                <li class="active"><span class="check">✓</span> <strong>Direct Access</strong> to Protocol Architects
+                </li>
+            </ul>
+
+            <button class="cta-btn" style="background: var(--gold); color: var(--void);"
+                onclick="initCheckout('build')">BEGIN THE BUILD</button>
+        </div>
+    </div>
+
+    <script>
+        function initCheckout(tier) {
+            // Placeholder for Stripe logic
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "INITIALIZING SECURE LINK...";
+            setTimeout(() => {
+                alert(`Redirecting to Stripe Secure Checkout for: ${tier === 'build' ? 'Sovereign Build ($1,997)' : 'Sovereign Dividend ($297/mo)'}`);
+                btn.innerText = originalText;
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

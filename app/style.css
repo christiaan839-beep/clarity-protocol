@@ -2302,3 +2302,137 @@ body.red-mode .hero-overlay {
 body.red-mode img {
     filter: grayscale(100%) sepia(100%) hue-rotate(-50deg) saturate(400%) contrast(1.2);
 }
+
+/* ═══ TACTICAL SWEEP UI ═══ */
+.sweep-card {
+    border-color: var(--gold-dim);
+    margin-bottom: var(--space-lg);
+    animation: fadeUp 0.8s var(--ease-out);
+}
+
+.sweep-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.sweep-header h3 {
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sweep-progress {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--signal-dim);
+}
+
+.sweep-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.sweep-item {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+}
+
+.sweep-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--gold-dim);
+}
+
+.sweep-item.completed {
+    background: rgba(var(--gold-rgb), 0.1);
+    /* Fallback or variable tweak needed */
+    border-color: var(--success);
+    opacity: 0.6;
+}
+
+.sweep-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--signal-muted);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--success);
+    font-weight: bold;
+    flex-shrink: 0;
+    transition: all var(--duration-fast);
+}
+
+.sweep-item.completed .sweep-checkbox {
+    border-color: var(--success);
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.sweep-content {
+    flex: 1;
+}
+
+.sweep-task {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--signal);
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sweep-tag {
+    font-size: 0.6rem;
+    color: var(--gold);
+    background: var(--gold-glow);
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sweep-detail {
+    font-size: 0.75rem;
+    color: var(--signal-dim);
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.sweep-impact {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--success);
+    text-transform: uppercase;
+}
+
+/* ═══ FEMININE MODE (ROSE GOLD / MOONSTONE) ═══ */
+body.mode-feminine {
+    --gold: #D8A0A0;
+    /* Rose Gold/Mauve */
+    --gold-light: #E8C0C0;
+    --gold-dim: rgba(216, 160, 160, 0.3);
+    --gold-glow: rgba(216, 160, 160, 0.1);
+    --void-deep: #0A0505;
+    /* Warmer dark */
+}
+
+body.mode-feminine .hero-overlay {
+    background:
+        radial-gradient(ellipse at 30% 50%, rgba(216, 160, 160, 0.04) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 30%, rgba(255, 230, 230, 0.02) 0%, transparent 50%),
+        linear-gradient(to bottom, transparent 60%, var(--void) 100%);
+}
