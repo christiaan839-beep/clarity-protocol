@@ -7,6 +7,26 @@
     <title>Sovereign Access | The Clarity Protocol</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="premium-enhancements.css">
+
+    <!-- ═══ SENTRY ERROR MONITORING ═══ -->
+    <script src="https://js.sentry-cdn.com/2d042bf47a49f248e88241086ee22550.min.js" crossorigin="anonymous"></script>
+    <script>
+        Sentry && Sentry.onLoad(function () {
+            Sentry.init({
+                dsn: 'https://2d042bf47a49f248e88241086ee22550@o4510909342810112.ingest.us.sentry.io/4510909348249600',
+                environment: location.hostname === 'localhost' ? 'development' : 'production',
+            });
+        });
+    </script>
+
+    <!-- ═══ GOOGLE ANALYTICS 4 ═══ -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CXESV59P0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-1CXESV59P0');
+    </script>
     <style>
         .pricing-hero {
             text-align: center;
@@ -183,16 +203,15 @@
         </div>
     </div>
 
-    <script>
-        function initCheckout(tier) {
-            // Placeholder for Stripe logic
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "INITIALIZING SECURE LINK...";
-            setTimeout(() => {
-                alert(`Redirecting to Stripe Secure Checkout for: ${tier === 'build' ? 'Sovereign Build ($1,997)' : 'Sovereign Dividend ($297/mo)'}`);
-                btn.innerText = originalText;
-            }, 1000);
+    <script type="module">
+        import { PaymentService } from './services/payments.js';
+
+        // Wire up checkout buttons
+        window.initCheckout = (tier) => PaymentService.checkout(tier);
+
+        // Track pricing page view
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'view_item_list', { item_list_name: 'Pricing' });
         }
     </script>
 </body>

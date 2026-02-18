@@ -7,6 +7,31 @@
     <title>The Clarity Protocol — Your Biological Operating System</title>
     <meta name="description"
         content="The Clarity Protocol is a 90-day operating system for reclaiming your body, mind, and sovereignty. Built in Cape Town. Engineered for the world.">
+
+    <!-- ═══ SENTRY ERROR MONITORING ═══ -->
+    <script src="https://js.sentry-cdn.com/2d042bf47a49f248e88241086ee22550.min.js" crossorigin="anonymous"></script>
+    <script>
+        Sentry && Sentry.onLoad(function () {
+            Sentry.init({
+                dsn: 'https://2d042bf47a49f248e88241086ee22550@o4510909342810112.ingest.us.sentry.io/4510909348249600',
+                environment: location.hostname === 'localhost' ? 'development' : 'production',
+                tracesSampleRate: 0.2,
+            });
+        });
+    </script>
+
+    <!-- ═══ GOOGLE ANALYTICS 4 ═══ -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1CXESV59P0"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-1CXESV59P0', {
+            page_title: 'The Clarity Protocol',
+            send_page_view: true
+        });
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -49,6 +74,8 @@
                 <li><a href="#lab" data-section="lab">LAB</a></li>
                 <li><a href="#library" data-section="library">LIBRARY</a></li>
             </ul>
+            <!-- Auth button injected by auth.js -->
+            <div id="auth-nav-btn" class="auth-nav-container"></div>
         </div>
     </nav>
 
@@ -396,6 +423,30 @@
         </div>
     </div>
 
+    <!-- ═══ AUTH INIT ═══ -->
+    <script type="module">
+        import { AuthService } from './services/auth.js';
+        import { SovereignData } from './services/SovereignData.js';
+
+        // Boot auth — updates nav UI on state change
+        AuthService.init();
+
+        // When user signs in, sync their cloud data
+        window.addEventListener('auth-state-changed', async ({ detail: { user } }) => {
+            if (user) {
+                await SovereignData.syncFromCloud();
+            }
+        });
+
+        // Track section navigation in GA4
+        document.querySelectorAll('[data-section]').forEach(link => {
+            link.addEventListener('click', () => {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'section_view', { section_name: link.dataset.section });
+                }
+            });
+        });
+    </script>
     <script type="module" src="app.js"></script>
 </body>
 

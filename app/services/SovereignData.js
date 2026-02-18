@@ -1,11 +1,14 @@
 /**
  * ═══════════════════════════════════════════════════════════════
  * SOVEREIGN DATA LAYER
- * "Your Data stays on your metal."
  * ═══════════════════════════════════════════════════════════════
- * Handles all local storage interactions, enforcing data privacy
- * by design. No cloud leaks. Direct-to-browser storage.
+ * Primary store: localStorage (instant, offline-first)
+ * Cloud sync: Firestore (when signed in, syncs in background)
+ * Guests: localStorage only — no cloud.
  */
+import { db } from './firebase-config.js';
+import { doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { auth } from './firebase-config.js';
 
 export const SovereignData = {
     // Core Keys
@@ -70,8 +73,35 @@ export const SovereignData = {
             window.dispatchEvent(new CustomEvent('sovereign-data-update', {
                 detail: { key, value }
             }));
+            // Background sync to Firestore if signed in
+            const uid = auth.currentUser?.uid;
+            if (uid) {
+                setDoc(doc(db, 'users', uid, 'data', key), { value }, { merge: true })
+                    .catch(e => console.warn('[SovereignData] Firestore write:', e.message));
+            }
         } catch (e) {
             console.error("SovereignData: Write Error (Quota Exceeded?)", e);
+        }
+    },
+
+    /**
+     * Pull user data from Firestore into localStorage (called on sign-in)
+     */
+    async syncFromCloud() {
+        const uid = auth.currentUser?.uid;
+        if (!uid) return;
+        try {
+            const keys = Object.values(this.KEYS);
+            await Promise.all(keys.map(async (key) => {
+                const snap = await getDoc(doc(db, 'users', uid, 'data', key));
+                if (snap.exists()) {
+                    localStorage.setItem(key, JSON.stringify(snap.data().value));
+                }
+            }));
+            console.log('[SovereignData] Synced from cloud.');
+            window.dispatchEvent(new CustomEvent('sovereign-cloud-synced'));
+        } catch (e) {
+            console.warn('[SovereignData] Cloud sync failed (offline?):', e.message);
         }
     },
 
