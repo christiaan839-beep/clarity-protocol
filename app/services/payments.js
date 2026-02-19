@@ -1,97 +1,183 @@
 /**
  * ═══════════════════════════════════════════════════════════
  * PAYMENTS SERVICE — Clarity Protocol
- * Stripe Checkout Integration
+ * Stripe Checkout via Payment Links
  * ═══════════════════════════════════════════════════════════
- * HOW TO CONFIGURE:
- * 1. Go to https://dashboard.stripe.com/products
- * 2. Create two products: "Sovereign Dividend" ($297/mo) and "Sovereign Build" ($1997 one-time)
- * 3. Copy the Payment Link URLs for each product
- * 4. Replace the PAYMENT_LINKS below with your actual URLs
  *
- * OR use Stripe Payment Links (no code needed):
- * dashboard.stripe.com/payment-links → Create link → copy URL
+ * ── SETUP (2 minutes) ────────────────────────────────────
+ * 1. Go to: https://dashboard.stripe.com/payment-links
+ * 2. Click "+ New" → create "Sovereign Dividend" ($297 recurring monthly)
+ * 3. Click "+ New" → create "Sovereign Build" ($1,997 one-time)
+ * 4. Copy both URLs (they look like: https://buy.stripe.com/xxxx)
+ * 5. Replace the placeholder URLs below with your actual links
+ * 6. Push — deploys in ~44 seconds ✅
+ * ─────────────────────────────────────────────────────────
  */
 
-const STRIPE_CONFIG = {
-    // Replace with your actual Stripe Payment Link URLs from dashboard.stripe.com/payment-links
-    PAYMENT_LINKS: {
-        dividend: 'https://buy.stripe.com/REPLACE_WITH_DIVIDEND_PAYMENT_LINK',
-        build: 'https://buy.stripe.com/REPLACE_WITH_BUILD_PAYMENT_LINK'
-    },
-    PRODUCTS: {
-        dividend: { name: 'Sovereign Dividend', price: '$297/mo' },
-        build: { name: 'Sovereign Build', price: '$1,997 one-time' }
-    }
+// ── 👇 PASTE YOUR STRIPE PAYMENT LINKS HERE ──────────────────────────────────
+const PAYMENT_LINKS = {
+    dividend: 'https://buy.stripe.com/REPLACE_SOVEREIGN_DIVIDEND',  // $297/mo
+    build: 'https://buy.stripe.com/REPLACE_SOVEREIGN_BUILD'      // $1,997 one-time
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PRODUCTS = {
+    dividend: { name: 'Sovereign Dividend', price: '$297/month', value: 297 },
+    build: { name: 'Sovereign Build', price: '$1,997', value: 1997 }
 };
 
+// ─── Checkout Button Loading State ───────────────────────────────────────────
+function setButtonLoading(btn, isLoading) {
+    if (!btn) return;
+    btn.disabled = isLoading;
+    btn.style.opacity = isLoading ? '0.7' : '';
+    btn.style.cursor = isLoading ? 'not-allowed' : '';
+    if (isLoading) {
+        btn.dataset.originalText = btn.textContent;
+        btn.textContent = 'PREPARING CHECKOUT…';
+    } else if (btn.dataset.originalText) {
+        btn.textContent = btn.dataset.originalText;
+    }
+}
+
+// ─── Config Setup Modal ───────────────────────────────────────────────────────
+function showConfigModal(product) {
+    document.querySelector('.cp-payment-modal')?.remove();
+
+    const overlay = document.createElement('div');
+    overlay.className = 'cp-payment-modal';
+    overlay.innerHTML = `
+        <div class="cp-modal-inner">
+            <div class="cp-modal-icon">◈</div>
+            <h2 class="cp-modal-title">STRIPE SETUP REQUIRED</h2>
+            <p class="cp-modal-desc">
+                To accept payments for <strong>${product.name}</strong>
+                (${product.price}), you need to connect a Stripe account.
+            </p>
+            <div class="cp-modal-steps">
+                <div class="cp-step"><span class="cp-step-num">1</span>Go to Stripe → Payment Links</div>
+                <div class="cp-step"><span class="cp-step-num">2</span>Create "${product.name}" product</div>
+                <div class="cp-step"><span class="cp-step-num">3</span>Copy the link URL</div>
+                <div class="cp-step"><span class="cp-step-num">4</span>Paste into <code>services/payments.js</code></div>
+            </div>
+            <a href="https://dashboard.stripe.com/payment-links"
+               target="_blank" rel="noopener noreferrer"
+               class="cp-modal-cta">
+                OPEN STRIPE DASHBOARD →
+            </a>
+            <button class="cp-modal-close" onclick="this.closest('.cp-payment-modal').remove()">
+                Close
+            </button>
+        </div>
+    `;
+
+    // Inject modal styles if needed
+    if (!document.getElementById('cp-modal-styles')) {
+        const style = document.createElement('style');
+        style.id = 'cp-modal-styles';
+        style.textContent = `
+            .cp-payment-modal {
+                position: fixed; inset: 0;
+                background: rgba(0,0,0,0.88);
+                display: flex; align-items: center; justify-content: center;
+                z-index: 9998; backdrop-filter: blur(10px);
+                animation: fadeInModal 0.3s ease;
+            }
+            @keyframes fadeInModal {
+                from { opacity: 0; transform: scale(0.97); }
+                to   { opacity: 1; transform: scale(1); }
+            }
+            .cp-modal-inner {
+                background: #111; border: 1px solid rgba(212,175,55,0.5);
+                border-radius: 16px; padding: 2.5rem; max-width: 440px;
+                width: 90%; text-align: center; color: #eaeaea;
+                box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.05);
+            }
+            .cp-modal-icon { color: #D4AF37; font-size: 2.5rem; margin-bottom: 1rem; }
+            .cp-modal-title {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 1.1rem; letter-spacing: 2px;
+                color: #fff; margin-bottom: 0.75rem;
+            }
+            .cp-modal-desc {
+                color: #888; font-size: 0.9rem; line-height: 1.6;
+                margin-bottom: 1.5rem;
+            }
+            .cp-modal-desc strong { color: #eaeaea; }
+            .cp-modal-steps {
+                text-align: left; margin-bottom: 1.75rem;
+                border: 1px solid rgba(255,255,255,0.07);
+                border-radius: 8px; padding: 1rem;
+            }
+            .cp-step {
+                display: flex; align-items: center; gap: 10px;
+                font-size: 0.82rem; color: #aaa; padding: 6px 0;
+            }
+            .cp-step-num {
+                min-width: 22px; height: 22px; border-radius: 50%;
+                background: rgba(212,175,55,0.15); color: #D4AF37;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 0.72rem; font-weight: 700;
+            }
+            .cp-step code { color: #D4AF37; font-size: 0.78rem; }
+            .cp-modal-cta {
+                display: inline-block; padding: 0.8rem 2rem;
+                background: #D4AF37; color: #000; border-radius: 8px;
+                text-decoration: none; font-weight: 700;
+                font-size: 0.82rem; letter-spacing: 1.5px;
+                transition: background 0.2s;
+                margin-bottom: 1rem;
+            }
+            .cp-modal-cta:hover { background: #E8C547; }
+            .cp-modal-close {
+                display: block; width: 100%; background: none; border: none;
+                color: #555; cursor: pointer; font-size: 0.8rem; padding: 6px;
+                transition: color 0.2s;
+            }
+            .cp-modal-close:hover { color: #888; }
+        `;
+        document.head.appendChild(style);
+    }
+
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+}
+
+// ─── PaymentService ────────────────────────────────────────────────────────────
 export const PaymentService = {
     /**
-     * Redirect to Stripe hosted checkout
-     * @param {string} tier - 'dividend' or 'build'
+     * Redirect to Stripe hosted checkout for the given tier.
+     * @param {string} tier - 'dividend' | 'build'
+     * @param {HTMLElement} [btnEl] - The button element (optional, for loading state)
      */
-    checkout(tier) {
-        const link = STRIPE_CONFIG.PAYMENT_LINKS[tier];
-        const product = STRIPE_CONFIG.PRODUCTS[tier];
+    checkout(tier, btnEl = null) {
+        const link = PAYMENT_LINKS[tier];
+        const product = PRODUCTS[tier];
 
         if (!product) {
             console.error('[Payments] Unknown tier:', tier);
             return;
         }
 
-        // Track analytics event if GA is available
+        // GA4 analytics
         if (typeof gtag !== 'undefined') {
             gtag('event', 'begin_checkout', {
                 currency: 'USD',
-                value: tier === 'build' ? 1997 : 297,
-                items: [{ item_name: product.name }]
+                value: product.value,
+                items: [{ item_name: product.name, price: product.value }]
             });
         }
 
-        // Check if payment link is configured
-        if (link.includes('REPLACE_WITH')) {
-            // Show a friendly message instead of broken redirect
-            this._showConfigModal(product);
+        // Not yet configured → show setup modal
+        if (!link || link.includes('REPLACE_')) {
+            showConfigModal(product);
             return;
         }
 
-        // Redirect to Stripe hosted checkout
-        window.location.href = link;
-    },
-
-    /**
-     * Show "Stripe not configured" modal (dev placeholder)
-     */
-    _showConfigModal(product) {
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999; backdrop-filter: blur(8px);
-        `;
-        overlay.innerHTML = `
-            <div style="background: #111; border: 1px solid #D4AF37; border-radius: 12px;
-                        padding: 2.5rem; max-width: 420px; text-align: center; color: #fff;">
-                <div style="color: #D4AF37; font-size: 2rem; margin-bottom: 1rem;">◈</div>
-                <h2 style="font-family: 'Cinzel', serif; margin-bottom: 0.5rem;">STRIPE NOT CONFIGURED</h2>
-                <p style="color: #aaa; margin-bottom: 1.5rem; line-height: 1.6;">
-                    To accept real payments for <strong style="color:#fff">${product.name}</strong>,
-                    add your Stripe Payment Link to <code style="color:#D4AF37">services/payments.js</code>.
-                </p>
-                <a href="https://dashboard.stripe.com/payment-links" target="_blank"
-                   style="display: inline-block; padding: 0.75rem 2rem; background: #D4AF37;
-                          color: #000; border-radius: 6px; text-decoration: none;
-                          font-weight: 700; font-size: 0.85rem; letter-spacing: 1px;">
-                    OPEN STRIPE DASHBOARD →
-                </a>
-                <br><br>
-                <button onclick="this.closest('[style*=fixed]').remove()"
-                        style="background: none; border: none; color: #666; cursor: pointer; font-size: 0.8rem;">
-                    Close
-                </button>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+        // Show loading state then redirect
+        setButtonLoading(btnEl, true);
+        setTimeout(() => {
+            window.location.href = link;
+        }, 300); // slight delay so user sees feedback
     }
 };

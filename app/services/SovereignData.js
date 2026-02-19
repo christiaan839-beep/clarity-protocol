@@ -6,9 +6,10 @@
  * Cloud sync: Firestore (when signed in, syncs in background)
  * Guests: localStorage only — no cloud.
  */
-import { db } from './firebase-config.js';
-import { doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-import { auth } from './firebase-config.js';
+import { db, auth } from './firebase-config.js';
+import {
+    doc, setDoc, getDoc
+} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 export const SovereignData = {
     // Core Keys
