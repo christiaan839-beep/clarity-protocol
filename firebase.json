@@ -63,8 +63,12 @@
                         "value": "max-age=63072000; includeSubDomains; preload"
                     },
                     {
+                        "key": "Cross-Origin-Opener-Policy",
+                        "value": "same-origin-allow-popups"
+                    },
+                    {
                         "key": "Content-Security-Policy",
-                        "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://js.sentry-cdn.com https://www.googletagmanager.com https://js.stripe.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://firestore.googleapis.com wss://*.firebaseio.com https://o4510909342810112.ingest.us.sentry.io https://www.google-analytics.com; frame-src https://clarity-protocol-app.firebaseapp.com https://accounts.google.com;"
+                        "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://js.sentry-cdn.com https://browser.sentry-cdn.com https://www.googletagmanager.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://lh3.googleusercontent.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://firestore.googleapis.com wss://*.firebaseio.com https://*.ingest.sentry.io https://www.google-analytics.com https://clarity-protocol.lemonsqueezy.com; frame-src https://clarity-protocol-app.firebaseapp.com https://accounts.google.com https://clarity-protocol.lemonsqueezy.com;"
                     }
                 ]
             }

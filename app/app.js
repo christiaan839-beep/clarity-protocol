@@ -278,12 +278,9 @@ let currentMode = SovereignData.get(SovereignData.KEYS.MODE, 'MASCULINE');
 // ═══ INITIALIZATION ═══
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
-    // initHeroAnimation(); // Currently erroring or missing function definition in snippet, skipping for now or assumed global
     initDashboard();
-    // initProtocols(); // Keep for general modules if needed, or refactor
-    // initSkillTree();
-    // initEngine();
-    // initInteractivity();
+    initProtocols();    // ← was commented out; restoring to populate Protocol Modules grid
+    initSkillTree();
     checkRedMode();
 
     // Initialize Score
