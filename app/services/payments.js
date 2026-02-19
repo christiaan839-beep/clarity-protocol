@@ -1,25 +1,35 @@
 /**
  * ═══════════════════════════════════════════════════════════
  * PAYMENTS SERVICE — Clarity Protocol
- * Stripe Checkout via Payment Links
+ * Lemon Squeezy Checkout Integration
  * ═══════════════════════════════════════════════════════════
  *
- * ── SETUP (2 minutes) ────────────────────────────────────
- * 1. Go to: https://dashboard.stripe.com/payment-links
- * 2. Click "+ New" → create "Sovereign Dividend" ($297 recurring monthly)
- * 3. Click "+ New" → create "Sovereign Build" ($1,997 one-time)
- * 4. Copy both URLs (they look like: https://buy.stripe.com/xxxx)
- * 5. Replace the placeholder URLs below with your actual links
- * 6. Push — deploys in ~44 seconds ✅
+ * ── SETUP (5 minutes) ────────────────────────────────────
+ * 1. Sign up at: https://app.lemonsqueezy.com
+ * 2. Create a Store (Settings → Stores)
+ * 3. Create Product 1:
+ *    - Name: "Sovereign Dividend"
+ *    - Variants → Price: $297 | Billing: Recurring monthly
+ *    - Publish → copy the Checkout URL
+ * 4. Create Product 2:
+ *    - Name: "Sovereign Build"
+ *    - Variants → Price: $1,997 | Billing: One-time
+ *    - Publish → copy the Checkout URL
+ * 5. Paste both URLs into CHECKOUT_URLS below
+ * 6. Push — auto-deploys in ~44s ✅
+ *
+ * Lemon Squeezy handles: VAT/tax globally, chargebacks,
+ * currencies, and payouts to South Africa ✅
  * ─────────────────────────────────────────────────────────
  */
 
-// ── 👇 PASTE YOUR STRIPE PAYMENT LINKS HERE ──────────────────────────────────
-const PAYMENT_LINKS = {
-    dividend: 'https://buy.stripe.com/REPLACE_SOVEREIGN_DIVIDEND',  // $297/mo
-    build: 'https://buy.stripe.com/REPLACE_SOVEREIGN_BUILD'      // $1,997 one-time
+// ── 👇 LEMON SQUEEZY CHECKOUT URLS (LIVE ✅) ─────────────────────────────────
+const CHECKOUT_URLS = {
+    dividend: 'https://clarity-protocol.lemonsqueezy.com/checkout/buy/d5ac4f3d-6bb9-44d2-8aa8-c2401e7ca8dd',
+    build: 'https://clarity-protocol.lemonsqueezy.com/checkout/buy/afd0c1b3-d0d9-43c7-8e4b-bf593891e394'
 };
 // ─────────────────────────────────────────────────────────────────────────────
+
 
 const PRODUCTS = {
     dividend: { name: 'Sovereign Dividend', price: '$297/month', value: 297 },
@@ -49,21 +59,21 @@ function showConfigModal(product) {
     overlay.innerHTML = `
         <div class="cp-modal-inner">
             <div class="cp-modal-icon">◈</div>
-            <h2 class="cp-modal-title">STRIPE SETUP REQUIRED</h2>
+            <h2 class="cp-modal-title">PAYMENTS NOT CONFIGURED</h2>
             <p class="cp-modal-desc">
                 To accept payments for <strong>${product.name}</strong>
-                (${product.price}), you need to connect a Stripe account.
+                (${product.price}), connect a Lemon Squeezy store.
             </p>
             <div class="cp-modal-steps">
-                <div class="cp-step"><span class="cp-step-num">1</span>Go to Stripe → Payment Links</div>
-                <div class="cp-step"><span class="cp-step-num">2</span>Create "${product.name}" product</div>
-                <div class="cp-step"><span class="cp-step-num">3</span>Copy the link URL</div>
-                <div class="cp-step"><span class="cp-step-num">4</span>Paste into <code>services/payments.js</code></div>
+                <div class="cp-step"><span class="cp-step-num">1</span>Sign up at <em>app.lemonsqueezy.com</em></div>
+                <div class="cp-step"><span class="cp-step-num">2</span>Create a Store (Settings → Stores)</div>
+                <div class="cp-step"><span class="cp-step-num">3</span>Create product → Publish → copy Checkout URL</div>
+                <div class="cp-step"><span class="cp-step-num">4</span>Paste URL into <code>services/payments.js</code></div>
             </div>
-            <a href="https://dashboard.stripe.com/payment-links"
+            <a href="https://app.lemonsqueezy.com/register"
                target="_blank" rel="noopener noreferrer"
                class="cp-modal-cta">
-                OPEN STRIPE DASHBOARD →
+                OPEN LEMON SQUEEZY →
             </a>
             <button class="cp-modal-close" onclick="this.closest('.cp-payment-modal').remove()">
                 Close
@@ -120,6 +130,7 @@ function showConfigModal(product) {
                 font-size: 0.72rem; font-weight: 700;
             }
             .cp-step code { color: #D4AF37; font-size: 0.78rem; }
+            .cp-step em { color: #D4AF37; font-style: normal; }
             .cp-modal-cta {
                 display: inline-block; padding: 0.8rem 2rem;
                 background: #D4AF37; color: #000; border-radius: 8px;
@@ -146,12 +157,12 @@ function showConfigModal(product) {
 // ─── PaymentService ────────────────────────────────────────────────────────────
 export const PaymentService = {
     /**
-     * Redirect to Stripe hosted checkout for the given tier.
+     * Redirect to Lemon Squeezy hosted checkout for the given tier.
      * @param {string} tier - 'dividend' | 'build'
      * @param {HTMLElement} [btnEl] - The button element (optional, for loading state)
      */
     checkout(tier, btnEl = null) {
-        const link = PAYMENT_LINKS[tier];
+        const url = CHECKOUT_URLS[tier];
         const product = PRODUCTS[tier];
 
         if (!product) {
@@ -169,7 +180,7 @@ export const PaymentService = {
         }
 
         // Not yet configured → show setup modal
-        if (!link || link.includes('REPLACE_')) {
+        if (!url || url.includes('REPLACE_') || url.includes('YOURSTORE')) {
             showConfigModal(product);
             return;
         }
@@ -177,7 +188,7 @@ export const PaymentService = {
         // Show loading state then redirect
         setButtonLoading(btnEl, true);
         setTimeout(() => {
-            window.location.href = link;
-        }, 300); // slight delay so user sees feedback
+            window.location.href = url;
+        }, 300);
     }
 };
