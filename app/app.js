@@ -28,6 +28,15 @@ import { PDFManager } from './services/pdfManager.js';
 import { workflowEngine } from './services/workflow/WorkflowEngine.js';
 import { NodeEditor } from './services/workflow/NodeEditor.js';
 
+// ═══ CORE DATA SERVICES (Dashboard dependencies) ═══
+import { SovereignData } from './services/SovereignData.js';
+import { BioWeather } from './services/BioWeather.js';
+import { MaleTrack } from './services/MaleTrack.js';
+import { FemaleTrack } from './services/FemaleTrack.js';
+import { KnowledgeArsenal } from './services/KnowledgeArsenal.js';
+
+
+
 // ═══ DATA: MASCULINE (STANDARD) ═══
 const EXECUTION_PROTOCOL = {
     daily_timeline: [
