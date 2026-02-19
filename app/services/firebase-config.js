@@ -9,8 +9,9 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getAuth, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import {
-    getFirestore,
-    enableIndexedDbPersistence
+    initializeFirestore,
+    persistentLocalCache,
+    persistentMultipleTabManager
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -34,16 +35,10 @@ googleProvider.addScope('email');
 googleProvider.addScope('profile');
 googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-// Firestore — enable offline persistence (IndexedDB)
-// Users on slow/offline connections will still see their latest data
-export const db = getFirestore(app);
-enableIndexedDbPersistence(db).catch((err) => {
-    if (err.code === 'failed-precondition') {
-        // Multiple tabs open — persistence only available in one tab at a time
-        console.warn('[Firestore] Offline persistence unavailable (multiple tabs)');
-    } else if (err.code === 'unimplemented') {
-        // Browser doesn't support IndexedDB
-        console.warn('[Firestore] Browser does not support offline persistence');
-    }
+// Firestore — use persistent local cache (multi-tab safe, Firebase v10+ API)
+// Note: enableIndexedDbPersistence was removed in v9+, replaced with initializeFirestore
+export const db = initializeFirestore(app, {
+    localCache: persistentLocalCache({
+        tabManager: persistentMultipleTabManager()
+    })
 });
-
